@@ -2,7 +2,7 @@ import Habit from "@/components/habit";
 
 export default function Page() {
   return (
-    <main className="container py-16">
+    <main className="px-4 sm:container py-16">
       <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
         <Habit theme="red" title="Title" description="Description" target={5} />
         <Habit
