@@ -1,0 +1,50 @@
+[
+    {
+        "name": "zinc",
+        "color": "#18181B"
+    },
+    {
+        "name": "slate",
+        "color": "#64748B"
+    },
+    {
+        "name": "stone",
+        "color": "#78716C"
+    },
+    {
+        "name": "gray",
+        "color": "#6B7280"
+    },
+    {
+        "name": "neutral",
+        "color": "#737373"
+    },
+    {
+        "name": "red",
+        "color": "#DC2626"
+    },
+    {
+        "name": "rose",
+        "color": "#E11D48"
+    },
+    {
+        "name": "orange",
+        "color": "#F97316"
+    },
+    {
+        "name": "green",
+        "color": "#16A43A"
+    },
+    {
+        "name": "blue",
+        "color": "#2563EB"
+    },
+    {
+        "name": "yellow",
+        "color": "#FACC15"
+    },
+    {
+        "name": "violet",
+        "color": "#7C3AED"
+    }
+]
