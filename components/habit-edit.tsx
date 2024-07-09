@@ -26,9 +26,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { updateHabit } from "@/lib/utils/habits/updateHabit";
 import themes from "@/public/themes.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { parse } from "path";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -40,7 +43,7 @@ type THabitEdit = {
 const formSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
-  target: z.number().int().min(1),
+  target: z.string(),
   theme: z.string(),
 });
 
@@ -53,18 +56,32 @@ export default function HabitEdit({
   isEditDialogOpen,
   setIsEditDialogOpen,
 }: THabitEdit & THabit) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title,
       description,
-      target,
+      target: target.toString(),
       theme,
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
+
+    await updateHabit(
+      id,
+      parseInt(values.target),
+      values.title,
+      values.description,
+      values.theme,
+    );
+
+    setIsEditDialogOpen(false);
+
+    setIsLoading(false);
   }
 
   return (
@@ -170,7 +187,7 @@ export default function HabitEdit({
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit">Save</Button>
+              <Button type="submit">{isLoading ? "Saving..." : "Save"}</Button>
             </DialogFooter>
           </form>
         </Form>

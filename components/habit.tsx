@@ -47,6 +47,7 @@ export default function Habit({
   records,
 }: any) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isTargetDialogOpen, setIsTargetDialogOpen] = useState(false);
 
   const chartData = generateChartData(records);
 
@@ -72,7 +73,12 @@ export default function Habit({
             <CardDescription>{description}</CardDescription>
           </div>
           <div className="flex h-fit items-center gap-2">
-            <HabitTarget target={target} />
+            <HabitTarget
+              id={id}
+              target={target}
+              isTargetDialogOpen={isTargetDialogOpen}
+              setIsTargetDialogOpen={setIsTargetDialogOpen}
+            />
 
             <HabitActions
               id={id}

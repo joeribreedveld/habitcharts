@@ -19,20 +19,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { updateHabit } from "@/lib/utils/habits/updateHabit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Crosshair } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 type THabitTarget = {
+  id: string;
   target: number;
+  isTargetDialogOpen: boolean;
+  setIsTargetDialogOpen: (value: boolean) => void;
 };
 
 const formSchema = z.object({
   target: z.string(),
 });
 
-export default function HabitTarget({ target }: THabitTarget) {
+export default function HabitTarget({
+  id,
+  target,
+  isTargetDialogOpen,
+  setIsTargetDialogOpen,
+}: THabitTarget) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,12 +52,18 @@ export default function HabitTarget({ target }: THabitTarget) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
+
+    await updateHabit(id, parseInt(values.target));
+
+    setIsTargetDialogOpen(false);
+
+    setIsLoading(false);
   }
 
   return (
-    <Dialog>
+    <Dialog open={isTargetDialogOpen} onOpenChange={setIsTargetDialogOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="icon">
           <Crosshair className="h-4 w-4" />
@@ -83,7 +101,7 @@ export default function HabitTarget({ target }: THabitTarget) {
               />
             </div>
             <DialogFooter className="mt-4">
-              <Button type="submit">Save</Button>
+              <Button type="submit">{isLoading ? "Saving..." : "Save"}</Button>
             </DialogFooter>
           </form>
         </Form>
