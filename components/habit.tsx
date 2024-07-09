@@ -97,7 +97,7 @@ export default function Habit({
       </CardHeader>
       <CardContent>
         {records.length === 0 ? (
-          <div className="aspect-video outline-dashed outline-border rounded-md flex items-center justify-center">
+          <div className="aspect-video border-dashed border rounded-md flex items-center justify-center">
             <p className="text-center text-muted-foreground text-xs">
               No records found
             </p>
