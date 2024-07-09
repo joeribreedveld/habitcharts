@@ -57,19 +57,6 @@ export function generateData() {
   ];
 }
 
-// [
-//   {
-//     id: 'clydf3fde0002qi7ckofcczl9',
-//     date: 2024-07-08T20:10:59.815Z,
-//     habitId: 'clydf27aa0000qi7cj0q61lu2',
-//     createdAt: 2024-07-08T20:10:59.858Z,
-//     updatedAt: 2024-07-08T20:10:59.858Z
-//   }
-// ]
-
-// get 8 weeks and the first day of the week to display on the x-axis
-// count how many records are in each week and display the number in "week"
-
 export function generateChartData(records: any) {
   const data = Array.from({ length: 8 }, (_, i) => {
     const currentDate = new Date();

@@ -68,6 +68,8 @@ export default function Habit({
     isSameDay(new Date(record.date), new Date()),
   );
 
+  console.log(new Date(records[0]?.date));
+
   return (
     <Card className="flex flex-col">
       <CardHeader className="space-y-0 flex-row justify-between gap-4 h-full w-full">
@@ -95,9 +97,8 @@ export default function Habit({
       </CardHeader>
       <CardContent>
         {records.length === 0 ? (
-          <div className="aspect-video border-dashed border rounded-md flex items-center justify-center">
-            <p className="text-center text-muted-foreground text-sm flex items-center">
-              <CircleHelp className="h-4 w-4 text-muted-foreground mr-2" />
+          <div className="aspect-video outline-dashed outline-border rounded-md flex items-center justify-center">
+            <p className="text-center text-muted-foreground text-xs">
               No records found
             </p>
           </div>
