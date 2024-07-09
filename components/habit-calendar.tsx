@@ -81,6 +81,7 @@ export function HabitCalendar({
               day_today: "font-bold",
               head_row: "flex gap-2",
             }}
+            disabled={(day) => day > new Date()}
             components={{
               DayContent: ({ ...props }) => {
                 return (

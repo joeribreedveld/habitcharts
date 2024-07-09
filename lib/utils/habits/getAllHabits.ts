@@ -12,8 +12,6 @@ export async function getAllHabits() {
     },
   });
 
-  console.log(response);
-
   revalidatePath("/");
 
   return response;

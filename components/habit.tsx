@@ -68,8 +68,6 @@ export default function Habit({
     isSameDay(new Date(record.date), new Date()),
   );
 
-  console.log(new Date(records[0]?.date));
-
   return (
     <Card className="flex flex-col">
       <CardHeader className="space-y-0 flex-row justify-between gap-4 h-full w-full">

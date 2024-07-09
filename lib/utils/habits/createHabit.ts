@@ -20,7 +20,5 @@ export async function createHabit(
     },
   });
 
-  console.log(response);
-
   revalidatePath("/");
 }
