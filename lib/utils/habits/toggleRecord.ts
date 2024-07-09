@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient();
 
-export async function createRecord(habitId: string, date: string) {
+export async function toggleRecord(habitId: string, date: string) {
   const habit = await prisma.habit.findUnique({
     where: {
       id: habitId,
@@ -31,7 +31,19 @@ export async function createRecord(habitId: string, date: string) {
   });
 
   if (record) {
-    throw new Error("Record already exists");
+    await prisma.record.delete({
+      where: {
+        id: record.id,
+      },
+    });
+
+    revalidatePath("/");
+
+    return;
+  }
+
+  if (startDate > new Date()) {
+    throw new Error("Cannot record for future dates");
   }
 
   const response = await prisma.record.create({

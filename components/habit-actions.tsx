@@ -1,5 +1,7 @@
 "use client";
 
+import { HabitCalendar } from "./habit-calendar";
+import { ThemeWrapper } from "./theme-wrapper";
 import { THabit } from "@/components/habit";
 import HabitDelete from "@/components/habit-delete";
 import HabitEdit from "@/components/habit-edit";
@@ -9,7 +11,11 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Ellipsis } from "lucide-react";
@@ -21,9 +27,11 @@ export default function HabitActions({
   description,
   target,
   theme,
+  records,
 }: THabit) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isCalendarDialogOpen, setIsCalendarDialogOpen] = useState(false);
 
   return (
     <>
@@ -36,6 +44,10 @@ export default function HabitActions({
 
         <DropdownMenuContent align="end" side="bottom">
           <DropdownMenuGroup>
+            <DropdownMenuItem onClick={() => setIsCalendarDialogOpen(true)}>
+              Calendar
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
               Edit
             </DropdownMenuItem>
@@ -47,12 +59,20 @@ export default function HabitActions({
         </DropdownMenuContent>
       </DropdownMenu>
 
+      <HabitCalendar
+        id={id}
+        records={records}
+        isCalendarDialogOpen={isCalendarDialogOpen}
+        setIsCalendarDialogOpen={setIsCalendarDialogOpen}
+      />
+
       <HabitEdit
         id={id}
         title={title}
         description={description}
         target={target}
         theme={theme}
+        records={records}
         isEditDialogOpen={isEditDialogOpen}
         setIsEditDialogOpen={setIsEditDialogOpen}
       />

@@ -14,8 +14,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { generateChartData } from "@/lib/utils";
-import { createRecord } from "@/lib/utils/habits/createRecord";
-import { CircleAlert } from "lucide-react";
+import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
+import { CircleAlert, CircleCheck } from "lucide-react";
+
+export type TRecord = {
+  id: string;
+  date: string;
+  habitId: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
 
 export type THabit = {
   id: string;
@@ -23,6 +31,9 @@ export type THabit = {
   description: string;
   target: number;
   theme: string;
+  records: TRecord[];
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export default function Habit({
@@ -35,43 +46,54 @@ export default function Habit({
 }: any) {
   const chartData = generateChartData(records);
 
-  function handleCheck() {
-    createRecord(id, new Date().toISOString());
+  function handleToggleRecord() {
+    toggleRecord(id, new Date().toISOString());
   }
+
+  const todayIsRecorded = records.some(
+    (record: TRecord) =>
+      new Date(record.date).toDateString() === new Date().toDateString(),
+  );
 
   return (
     <Card>
-      <CardHeader className="space-y-0 flex-row justify-between">
-        <div className="space-y-1.5">
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </div>
-        <div className="flex h-fit items-center gap-2">
-          <HabitTarget target={target} />
+      <ThemeWrapper theme={theme}>
+        <CardHeader className="space-y-0 flex-row justify-between">
+          <div className="space-y-1.5">
+            <CardTitle>{title}</CardTitle>
+            <CardDescription>{description}</CardDescription>
+          </div>
+          <div className="flex h-fit items-center gap-2">
+            <HabitTarget target={target} />
 
-          <HabitActions
-            id={id}
-            title={title}
-            description={description}
-            target={target}
-            theme={theme}
-          />
-        </div>
-      </CardHeader>
-      <CardContent>
-        <ThemeWrapper theme={theme}>
+            <HabitActions
+              id={id}
+              title={title}
+              description={description}
+              target={target}
+              theme={theme}
+              records={records}
+            />
+          </div>
+        </CardHeader>
+        <CardContent>
           <HabitChart target={target} chartData={chartData} />
-        </ThemeWrapper>
-      </CardContent>
+        </CardContent>
+      </ThemeWrapper>
+
       <CardFooter>
         <Button
-          variant="outline"
+          variant={todayIsRecorded ? "secondary" : "outline"}
           size="lg"
           className="mt-2 w-full text-xs"
-          onClick={() => handleCheck()}
+          onClick={() => handleToggleRecord()}
         >
-          <CircleAlert className="mr-2 h-4 w-4" />
-          Todo
+          {todayIsRecorded ? (
+            <CircleCheck className="h-4 w-4 mr-2" />
+          ) : (
+            <CircleAlert className="h-4 w-4 mr-2" />
+          )}
+          {todayIsRecorded ? "Completed" : "Todo"}
         </Button>
       </CardFooter>
     </Card>

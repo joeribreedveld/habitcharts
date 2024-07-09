@@ -1,6 +1,4 @@
 import Habit from "@/components/habit";
-import { createHabit } from "@/lib/utils/habits/createHabit";
-import { createRecord } from "@/lib/utils/habits/createRecord";
 import { getAllHabits } from "@/lib/utils/habits/getAllHabits";
 
 export default async function Page() {
@@ -20,37 +18,6 @@ export default async function Page() {
             theme={habit.theme}
           />
         ))}
-        {/* <Habit theme="red" title="Title" description="Description" target={5} />
-        <Habit
-          theme="orange"
-          title="Title"
-          description="Description"
-          target={5}
-        />
-        <Habit
-          theme="green"
-          title="Title"
-          description="Description"
-          target={5}
-        />
-        <Habit
-          theme="blue"
-          title="Title"
-          description="Description"
-          target={5}
-        />
-        <Habit
-          theme="yellow"
-          title="Title"
-          description="Description"
-          target={5}
-        />
-        <Habit
-          theme="violet"
-          title="Title"
-          description="Description"
-          target={5}
-        /> */}
       </div>
     </main>
   );
