@@ -15,7 +15,9 @@ import {
 } from "@/components/ui/card";
 import { generateChartData } from "@/lib/utils";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
-import { CircleAlert, CircleCheck } from "lucide-react";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
+import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react";
+import { useState } from "react";
 
 export type TRecord = {
   id: string;
@@ -44,10 +46,16 @@ export default function Habit({
   theme,
   records,
 }: any) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const chartData = generateChartData(records);
 
-  function handleToggleRecord() {
-    toggleRecord(id, new Date().toISOString());
+  async function handleToggleRecord() {
+    setIsLoading(true);
+
+    await toggleRecord(id, new Date().toISOString());
+
+    setIsLoading(false);
   }
 
   const todayIsRecorded = records.some(
@@ -87,8 +95,11 @@ export default function Habit({
           size="lg"
           className="mt-2 w-full text-xs"
           onClick={() => handleToggleRecord()}
+          disabled={isLoading}
         >
-          {todayIsRecorded ? (
+          {isLoading ? (
+            <LoaderCircle className="h-4 w-4 mr-2 animate-spin" />
+          ) : todayIsRecorded ? (
             <CircleCheck className="h-4 w-4 mr-2" />
           ) : (
             <CircleAlert className="h-4 w-4 mr-2" />
