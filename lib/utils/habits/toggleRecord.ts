@@ -1,6 +1,7 @@
 "use server";
 
 import { PrismaClient } from "@prisma/client";
+import { endOfDay, startOfDay } from "date-fns";
 import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient();
@@ -20,8 +21,8 @@ export async function toggleRecord(habitId: string, date: Date) {
     where: {
       habitId,
       date: {
-        gte: new Date(date).toISOString(),
-        lt: new Date(date).toISOString(),
+        gte: startOfDay(new Date(date)).toISOString(),
+        lt: endOfDay(new Date(date)).toISOString(),
       },
     },
   });

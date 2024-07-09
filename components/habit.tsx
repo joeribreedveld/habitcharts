@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/card";
 import { generateChartData } from "@/lib/utils";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
+import { isSameDay } from "date-fns";
 import {
   CircleAlert,
   CircleCheck,
@@ -63,9 +64,8 @@ export default function Habit({
     setIsLoading(false);
   }
 
-  const todayIsRecorded = records.some(
-    (record: TRecord) =>
-      new Date(record.date).toDateString() === new Date().toDateString(),
+  const todayIsRecorded = records.some((record: TRecord) =>
+    isSameDay(new Date(record.date), new Date()),
   );
 
   return (
