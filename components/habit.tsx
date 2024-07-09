@@ -15,8 +15,12 @@ import {
 } from "@/components/ui/card";
 import { generateChartData } from "@/lib/utils";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
-import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
-import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react";
+import {
+  CircleAlert,
+  CircleCheck,
+  CircleHelp,
+  LoaderCircle,
+} from "lucide-react";
 import { useState } from "react";
 
 export type TRecord = {
@@ -65,35 +69,44 @@ export default function Habit({
   );
 
   return (
-    <Card>
-      <ThemeWrapper theme={theme}>
-        <CardHeader className="space-y-0 flex-row justify-between">
-          <div className="space-y-1.5">
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
-          </div>
-          <div className="flex h-fit items-center gap-2">
-            <HabitTarget
-              id={id}
-              target={target}
-              isTargetDialogOpen={isTargetDialogOpen}
-              setIsTargetDialogOpen={setIsTargetDialogOpen}
-            />
+    <Card className="flex flex-col">
+      <CardHeader className="space-y-0 flex-row justify-between gap-4 h-full w-full">
+        <div className="space-y-1.5 w-full">
+          <CardTitle className="line-clamp-1 break-all">{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+        </div>
+        <div className="flex h-fit items-center gap-2">
+          <HabitTarget
+            id={id}
+            target={target}
+            isTargetDialogOpen={isTargetDialogOpen}
+            setIsTargetDialogOpen={setIsTargetDialogOpen}
+          />
 
-            <HabitActions
-              id={id}
-              title={title}
-              description={description}
-              target={target}
-              theme={theme}
-              records={records}
-            />
+          <HabitActions
+            id={id}
+            title={title}
+            description={description}
+            target={target}
+            theme={theme}
+            records={records}
+          />
+        </div>
+      </CardHeader>
+      <CardContent>
+        {records.length === 0 ? (
+          <div className="aspect-video border-dashed border rounded-md flex items-center justify-center">
+            <p className="text-center text-muted-foreground text-sm flex items-center">
+              <CircleHelp className="h-4 w-4 text-muted-foreground mr-2" />
+              No records found
+            </p>
           </div>
-        </CardHeader>
-        <CardContent>
-          <HabitChart target={target} chartData={chartData} />
-        </CardContent>
-      </ThemeWrapper>
+        ) : (
+          <ThemeWrapper theme={theme}>
+            <HabitChart target={target} chartData={chartData} />
+          </ThemeWrapper>
+        )}
+      </CardContent>
 
       <CardFooter>
         <Button

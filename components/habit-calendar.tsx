@@ -54,8 +54,6 @@ export function HabitCalendar({
     }
   }
 
-  // const recorded = records.map((record) => new Date(record.date));
-
   return (
     <Dialog open={isCalendarDialogOpen} onOpenChange={setIsCalendarDialogOpen}>
       <DialogContent className="max-w-min">
@@ -67,6 +65,7 @@ export function HabitCalendar({
         </DialogHeader>
         <div className="py-4 w-fit">
           <Calendar
+            weekStartsOn={1}
             mode="single"
             onDayClick={(day) => handleToggleRecord(day)}
             className="rounded-md border shadow w-fit"

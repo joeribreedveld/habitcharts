@@ -1,8 +1,7 @@
 "use client";
 
-import { HabitCalendar } from "./habit-calendar";
-import { ThemeWrapper } from "./theme-wrapper";
 import { THabit } from "@/components/habit";
+import { HabitCalendar } from "@/components/habit-calendar";
 import HabitDelete from "@/components/habit-delete";
 import HabitEdit from "@/components/habit-edit";
 import { Button } from "@/components/ui/button";
@@ -11,11 +10,7 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Ellipsis } from "lucide-react";

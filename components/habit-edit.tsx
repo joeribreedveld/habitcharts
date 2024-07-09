@@ -30,7 +30,6 @@ import { updateHabit } from "@/lib/utils/habits/updateHabit";
 import themes from "@/public/themes.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { parse } from "path";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -41,8 +40,8 @@ type THabitEdit = {
 };
 
 const formSchema = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
+  title: z.string().min(1).max(20),
+  description: z.string().min(1).max(50),
   target: z.string(),
   theme: z.string(),
 });

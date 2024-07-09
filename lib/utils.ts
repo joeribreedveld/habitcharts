@@ -69,15 +69,15 @@ export function generateData() {
 
 // get 8 weeks and the first day of the week to display on the x-axis
 // count how many records are in each week and display the number in "week"
+
 export function generateChartData(records: any) {
   const data = Array.from({ length: 8 }, (_, i) => {
     const currentDate = new Date();
 
-    const weekStart = startOfWeek(subWeeks(currentDate, i));
-
-    const weekEnd = endOfWeek(weekStart);
-
-    const displayDate = addDays(weekStart, 1);
+    const weekStart = startOfWeek(subWeeks(currentDate, i), {
+      weekStartsOn: 1,
+    });
+    const weekEnd = endOfWeek(weekStart, { weekStartsOn: 1 });
 
     return {
       week: records.filter((record: any) => {
@@ -85,7 +85,7 @@ export function generateChartData(records: any) {
 
         return isWithinInterval(recordDate, { start: weekStart, end: weekEnd });
       }).length,
-      date: format(displayDate, "d/M"),
+      date: format(weekStart, "d/M"),
     };
   });
 

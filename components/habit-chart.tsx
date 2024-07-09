@@ -1,7 +1,6 @@
 "use client";
 
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-import { generateData } from "@/lib/utils";
 import { Bar, BarChart, Cell, ReferenceLine, XAxis, YAxis } from "recharts";
 
 type THabitChart = {
@@ -13,7 +12,7 @@ const chartConfig: ChartConfig = {};
 
 export default function HabitChart({ target, chartData }: THabitChart) {
   return (
-    <ChartContainer config={chartConfig}>
+    <ChartContainer config={chartConfig} className="aspect-video">
       <BarChart data={chartData} barCategoryGap="12.5%">
         <Bar dataKey="week" radius={[4, 4, 0, 0]}>
           {chartData.map((entry: any, index: number) => (
