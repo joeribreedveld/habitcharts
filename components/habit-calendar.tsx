@@ -48,7 +48,7 @@ export function HabitCalendar({
 
       setLoadingDates((dates) => [...dates, day]);
 
-      await toggleRecord(id, day.toISOString());
+      await toggleRecord(id, day.toUTCString());
 
       setLoadingDates((dates) => dates.filter((date) => !isSameDay(date, day)));
     }

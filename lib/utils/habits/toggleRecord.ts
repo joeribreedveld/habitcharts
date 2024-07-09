@@ -17,8 +17,8 @@ export async function toggleRecord(habitId: string, date: string) {
     throw new Error("Habit not found");
   }
 
-  const startDate = startOfDay(new Date(date));
-  const endDate = endOfDay(new Date(date));
+  const startDate = startOfDay(new Date(date).toUTCString());
+  const endDate = endOfDay(new Date(date).toUTCString());
 
   const record = await prisma.record.findFirst({
     where: {
