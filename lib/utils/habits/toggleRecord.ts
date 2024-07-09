@@ -1,7 +1,6 @@
 "use server";
 
 import { PrismaClient } from "@prisma/client";
-import { startOfDay, endOfDay } from "date-fns";
 import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient();
@@ -17,16 +16,10 @@ export async function toggleRecord(habitId: string, date: string) {
     throw new Error("Habit not found");
   }
 
-  const startDate = startOfDay(new Date(date).toUTCString());
-  const endDate = endOfDay(new Date(date).toUTCString());
-
   const record = await prisma.record.findFirst({
     where: {
       habitId,
-      date: {
-        gte: startDate,
-        lte: endDate,
-      },
+      date: new Date(date).toISOString(),
     },
   });
 
@@ -42,14 +35,14 @@ export async function toggleRecord(habitId: string, date: string) {
     return;
   }
 
-  if (startDate > new Date()) {
+  if (new Date(date) > new Date()) {
     throw new Error("Cannot record for future dates");
   }
 
   const response = await prisma.record.create({
     data: {
       habitId,
-      date: startDate, // Save the start of the day to keep it consistent
+      date: new Date(date).toISOString(),
     },
   });
 

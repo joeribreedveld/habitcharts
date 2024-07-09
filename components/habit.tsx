@@ -58,7 +58,7 @@ export default function Habit({
   async function handleToggleRecord() {
     setIsLoading(true);
 
-    await toggleRecord(id, new Date().toUTCString());
+    await toggleRecord(id, new Date().toDateString());
 
     setIsLoading(false);
   }
