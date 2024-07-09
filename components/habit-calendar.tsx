@@ -1,6 +1,8 @@
-import { TRecord } from "./habit";
-import { Button } from "./ui/button";
-import { Checkbox } from "./ui/checkbox";
+"use client";
+
+import { TRecord } from "@/components/habit";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Dialog,
   DialogClose,
@@ -9,24 +11,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "./ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { cn } from "@/lib/utils";
+} from "@/components/ui/dialog";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { format, isSameDay } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import { isSameDay } from "date-fns";
+import { LoaderCircle } from "lucide-react";
+import { useState } from "react";
 
 type THabitCalendar = {
   id: string;
@@ -41,16 +31,30 @@ export function HabitCalendar({
   isCalendarDialogOpen,
   setIsCalendarDialogOpen,
 }: THabitCalendar) {
-  const date = new Date();
+  const [loadingDates, setLoadingDates] = useState<Date[]>([]);
+  const [recorded, setRecorded] = useState<Date[]>(
+    records.map((record) => new Date(record.date)),
+  );
 
   async function handleToggleRecord(day: Date | undefined) {
     if (day) {
-      await toggleRecord(id, day.toISOString());
+      setRecorded((dates) => {
+        if (dates.some((date) => isSameDay(date, day))) {
+          return dates.filter((date) => !isSameDay(date, day));
+        }
+
+        return [...dates, day];
+      });
+
+      setLoadingDates((dates) => [...dates, day]);
+
+      await toggleRecord(id, day.toDateString());
+
+      setLoadingDates((dates) => dates.filter((date) => !isSameDay(date, day)));
     }
   }
 
-  //   selected if record is on the same day as the calendar day
-  const recorded = records.map((record) => new Date(record.date));
+  // const recorded = records.map((record) => new Date(record.date));
 
   return (
     <Dialog open={isCalendarDialogOpen} onOpenChange={setIsCalendarDialogOpen}>
@@ -77,6 +81,27 @@ export function HabitCalendar({
               row: "flex w-full mt-2 gap-2",
               day_today: "font-bold",
               head_row: "flex gap-2",
+            }}
+            components={{
+              DayContent: ({ ...props }) => {
+                return (
+                  <div className="flex items-center justify-center h-8 w-8">
+                    {loadingDates.some((date) =>
+                      isSameDay(date, props.date),
+                    ) ? (
+                      <LoaderCircle className="h-4 w-4 animate-spin" />
+                    ) : (
+                      props.date.getDate()
+                    )}
+                  </div>
+                );
+              },
+              IconLeft: ({ ...props }) => (
+                <ChevronLeftIcon className="h-4 w-4" />
+              ),
+              IconRight: ({ ...props }) => (
+                <ChevronRightIcon className="h-4 w-4" />
+              ),
             }}
           />
         </div>

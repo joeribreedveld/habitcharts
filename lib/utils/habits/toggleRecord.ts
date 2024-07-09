@@ -56,4 +56,6 @@ export async function toggleRecord(habitId: string, date: string) {
   console.log(response);
 
   revalidatePath("/");
+
+  return;
 }
