@@ -6,18 +6,17 @@ import { Bar, BarChart, Cell, ReferenceLine, XAxis, YAxis } from "recharts";
 
 type THabitChart = {
   target: number;
+  chartData: any;
 };
 
 const chartConfig: ChartConfig = {};
 
-export default function HabitChart({ target }: THabitChart) {
-  const data = generateData();
-
+export default function HabitChart({ target, chartData }: THabitChart) {
   return (
     <ChartContainer config={chartConfig}>
-      <BarChart data={data} barCategoryGap="12.5%">
+      <BarChart data={chartData} barCategoryGap="12.5%">
         <Bar dataKey="week" radius={[4, 4, 0, 0]}>
-          {data.map((entry, index) => (
+          {chartData.map((entry: any, index: number) => (
             <Cell
               key={index}
               fontSize={12}

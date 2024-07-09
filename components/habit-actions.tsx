@@ -16,6 +16,7 @@ import { Ellipsis } from "lucide-react";
 import { useState } from "react";
 
 export default function HabitActions({
+  id,
   title,
   description,
   target,
@@ -47,6 +48,7 @@ export default function HabitActions({
       </DropdownMenu>
 
       <HabitEdit
+        id={id}
         title={title}
         description={description}
         target={target}
