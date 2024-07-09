@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient();
 
-export async function toggleRecord(habitId: string, date: string) {
+export async function toggleRecord(habitId: string, date: Date) {
   const habit = await prisma.habit.findUnique({
     where: {
       id: habitId,
@@ -19,7 +19,10 @@ export async function toggleRecord(habitId: string, date: string) {
   const record = await prisma.record.findFirst({
     where: {
       habitId,
-      date: new Date(date).toISOString(),
+      date: {
+        gte: new Date(date).toISOString(),
+        lt: new Date(date).toISOString(),
+      },
     },
   });
 
