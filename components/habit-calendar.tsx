@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
-import { isSameDay } from "date-fns";
+import { format, isSameDay } from "date-fns";
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 
@@ -38,22 +38,24 @@ export function HabitCalendar({
 
   async function handleToggleRecord(day: Date | undefined) {
     if (day) {
+      const formatteDay = new Date(format(day, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+
       setRecorded((dates) => {
-        if (dates.some((date) => isSameDay(date, day))) {
-          return dates.filter((date) => !isSameDay(date, day));
+        if (dates.some((date) => isSameDay(date, formatteDay))) {
+          return dates.filter((date) => !isSameDay(date, formatteDay));
         }
 
-        return [...dates, day];
+        return [...dates, formatteDay];
       });
 
-      setLoadingDates((dates) => [...dates, day]);
+      setLoadingDates((dates) => [...dates, formatteDay]);
 
-      await toggleRecord(id, day);
+      await toggleRecord(id, formatteDay);
 
-      setLoadingDates((dates) => dates.filter((date) => !isSameDay(date, day)));
+      setLoadingDates((dates) =>
+        dates.filter((date) => !isSameDay(date, formatteDay)),
+      );
     }
-
-    console.log("Calendar", day?.toISOString());
   }
 
   return (
