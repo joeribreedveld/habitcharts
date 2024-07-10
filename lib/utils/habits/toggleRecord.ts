@@ -44,10 +44,6 @@ export async function toggleRecord(habitId: string, date: Date) {
     return;
   }
 
-  if (date > new Date()) {
-    throw new Error("Cannot record future dates");
-  }
-
   const response = await prisma.record.create({
     data: {
       habitId,

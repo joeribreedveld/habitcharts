@@ -17,7 +17,7 @@ import { TChartData, THabit, TRecord } from "@/lib/types/habit-types";
 import { generateChartData } from "@/lib/utils";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
 import { Record } from "@prisma/client";
-import { isSameDay } from "date-fns";
+import { format, isSameDay } from "date-fns";
 import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 
@@ -34,7 +34,7 @@ export default function Habit({
 
   const chartData: TChartData[] = generateChartData(records);
 
-  const date = new Date();
+  const date = new Date(format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
 
   async function handleToggleRecord() {
     setIsLoading(true);
