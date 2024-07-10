@@ -52,6 +52,8 @@ export function HabitCalendar({
 
       setLoadingDates((dates) => dates.filter((date) => !isSameDay(date, day)));
     }
+
+    console.log("Calendar", day?.toISOString());
   }
 
   return (

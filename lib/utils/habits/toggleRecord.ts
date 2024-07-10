@@ -17,12 +17,19 @@ export async function toggleRecord(habitId: string, date: Date) {
     throw new Error("Habit not found");
   }
 
+  const startDate = startOfDay(new Date(date)).toISOString();
+  const endDate = endOfDay(new Date(date)).toISOString();
+
+  console.log("Server Date", date);
+
+  console.log("Server", startDate, endDate);
+
   const record = await prisma.record.findFirst({
     where: {
       habitId,
       date: {
-        gte: startOfDay(new Date(date)).toISOString(),
-        lt: endOfDay(new Date(date)).toISOString(),
+        gte: startDate,
+        lt: endDate,
       },
     },
   });
@@ -39,14 +46,14 @@ export async function toggleRecord(habitId: string, date: Date) {
     return;
   }
 
-  if (new Date(date) > new Date()) {
+  if (date > new Date()) {
     throw new Error("Cannot record future dates");
   }
 
   const response = await prisma.record.create({
     data: {
       habitId,
-      date: new Date(date).toISOString(),
+      date: date,
     },
   });
 

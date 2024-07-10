@@ -56,17 +56,21 @@ export default function Habit({
 
   const chartData = generateChartData(records);
 
+  const date = new Date();
+
   async function handleToggleRecord() {
     setIsLoading(true);
 
-    await toggleRecord(id, new Date());
+    await toggleRecord(id, date);
 
     setIsLoading(false);
+
+    console.log("Habit", date.toISOString());
   }
 
-  const todayIsRecorded = records.some((record: TRecord) =>
-    isSameDay(new Date(record.date), new Date()),
-  );
+  const todayIsRecorded = records.some((record: TRecord) => {
+    return isSameDay(new Date(record.date), date);
+  });
 
   return (
     <Card className="flex flex-col">
