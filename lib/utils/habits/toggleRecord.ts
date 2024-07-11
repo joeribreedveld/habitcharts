@@ -51,7 +51,7 @@ export async function toggleRecord(habitId: string, date: Date) {
   const response = await prisma.record.create({
     data: {
       habitId,
-      date: date,
+      date,
     },
   });
 
