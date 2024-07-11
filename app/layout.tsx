@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import HabitHeader from "@/components/habit-header";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -17,7 +18,10 @@ export const metadata: Metadata = {
 export default function Layout({ children }: TLayout) {
   return (
     <html lang="en" className="h-full">
-      <body className={cn(inter.className, "h-full")}>{children}</body>
+      <body className={cn(inter.className, "h-full")}>
+        <HabitHeader />
+        {children}
+      </body>
     </html>
   );
 }

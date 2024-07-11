@@ -8,7 +8,7 @@ export default async function Page() {
   // await createHabit("Title", "Description", 4, "yellow");
 
   return (
-    <main className="px-4 sm:container py-16">
+    <main className="px-4 sm:container py-12">
       <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
         {habits.map((habit) => (
           <Habit

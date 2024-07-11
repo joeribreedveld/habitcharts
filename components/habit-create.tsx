@@ -25,7 +25,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { THabit, THabitEdit } from "@/lib/types/habit-types";
+import { THabit, THabitCreate, THabitEdit } from "@/lib/types/habit-types";
+import { createHabit } from "@/lib/utils/habits/createHabit";
 import { updateHabit } from "@/lib/utils/habits/updateHabit";
 import themes from "@/public/themes.json";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -41,52 +42,48 @@ const formSchema = z.object({
   theme: z.string(),
 });
 
-export default function HabitEdit({
-  id,
-  title,
-  description,
-  target,
-  theme,
-  isEditDialogOpen,
-  setIsEditDialogOpen,
-}: THabitEdit & THabit) {
+export default function HabitCreate({
+  isCreateDialogOpen,
+  setIsCreateDialogOpen,
+}: THabitCreate) {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title,
-      description,
-      target: target.toString(),
-      theme,
+      title: "",
+      description: "",
+      target: "",
+      theme: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    await updateHabit(
-      id,
-      parseInt(values.target),
+    await createHabit(
       values.title,
       values.description,
+      parseInt(values.target),
       values.theme,
     );
 
-    setIsEditDialogOpen(false);
-
     setIsLoading(false);
+
+    setIsCreateDialogOpen(false);
+
+    form.reset();
   }
 
   return (
-    <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+    <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
       <DialogContent className="sm:max-w-md">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader>
-              <DialogTitle>Edit habit</DialogTitle>
+              <DialogTitle>New habit</DialogTitle>
               <DialogDescription>
-                Fill in the details below to edit this habit.
+                Create a new habit to track your progress.
               </DialogDescription>
             </DialogHeader>
             <div className="flex flex-col gap-4 py-4">
@@ -181,7 +178,9 @@ export default function HabitEdit({
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit">{isLoading ? "Saving..." : "Save"}</Button>
+              <Button type="submit">
+                {isLoading ? "Creating..." : "Create"}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

@@ -53,3 +53,8 @@ export type THabitTarget = {
   isTargetDialogOpen: boolean;
   setIsTargetDialogOpen: (value: boolean) => void;
 };
+
+export type THabitCreate = {
+  isCreateDialogOpen: boolean;
+  setIsCreateDialogOpen: (value: boolean) => void;
+};
