@@ -36,28 +36,24 @@ export function HabitCalendar({
     setRecorded(memoizedDates);
   }, [memoizedDates]);
 
-  async function handleToggleRecord(day: Date | undefined) {
-    if (day) {
-      const formatteDate = new Date(
-        format(day, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
-      );
+  async function handleToggleRecord(day: Date) {
+    const formattedDate = new Date(format(day, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
 
-      setRecorded((dates) => {
-        if (dates.some((date) => isSameDay(date, formatteDate))) {
-          return dates.filter((date) => !isSameDay(date, formatteDate));
-        }
+    setRecorded((dates) => {
+      if (dates.some((date) => isSameDay(date, formattedDate))) {
+        return dates.filter((date) => !isSameDay(date, formattedDate));
+      }
 
-        return [...dates, formatteDate];
-      });
+      return [...dates, formattedDate];
+    });
 
-      setLoadingDates((dates) => [...dates, formatteDate]);
+    setLoadingDates((dates) => [...dates, formattedDate]);
 
-      await toggleRecord(id, formatteDate);
+    await toggleRecord(id, formattedDate);
 
-      setLoadingDates((dates) =>
-        dates.filter((date) => !isSameDay(date, formatteDate)),
-      );
-    }
+    setLoadingDates((dates) =>
+      dates.filter((date) => !isSameDay(date, formattedDate)),
+    );
   }
 
   return (

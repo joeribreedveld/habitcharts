@@ -5,12 +5,7 @@ import { getAllHabits } from "@/lib/utils/habits/getAllHabits";
 export default async function Page() {
   const habits = await getAllHabits();
 
-  // await createHabit(
-  //   "Drink water",
-  //   "Drink 8 glasses of water",
-  //   8,
-  //   "Drink water",
-  // );
+  // await createHabit("Title", "Description", 4, "yellow");
 
   return (
     <main className="px-4 sm:container py-16">
