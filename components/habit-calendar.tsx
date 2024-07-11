@@ -40,14 +40,19 @@ export function HabitCalendar({
     const formattedDate = new Date(format(day, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
 
     setRecorded((dates) => {
-      if (dates.some((date) => isSameDay(date, formattedDate))) {
-        return dates.filter((date) => !isSameDay(date, formattedDate));
-      }
-
-      return [...dates, formattedDate];
+      const isAlreadyRecorded = dates.some((date) =>
+        isSameDay(date, formattedDate),
+      );
+      const newDates = isAlreadyRecorded
+        ? dates.filter((date) => !isSameDay(date, formattedDate))
+        : [...dates, formattedDate];
+      setLoadingDates((loadingDates) =>
+        isAlreadyRecorded
+          ? loadingDates.filter((date) => !isSameDay(date, formattedDate))
+          : [...loadingDates, formattedDate],
+      );
+      return newDates;
     });
-
-    setLoadingDates((dates) => [...dates, formattedDate]);
 
     await toggleRecord(id, formattedDate);
 
