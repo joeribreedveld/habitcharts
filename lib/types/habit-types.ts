@@ -13,6 +13,7 @@ export type THabitChart = {
 };
 
 export type THabitDelete = {
+  id: string;
   isDeleteDialogOpen: boolean;
   setIsDeleteDialogOpen: (open: boolean) => void;
 };

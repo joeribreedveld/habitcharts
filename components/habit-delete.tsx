@@ -1,3 +1,5 @@
+"use client";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,11 +11,27 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { THabitDelete } from "@/lib/types/habit-types";
+import { deleteHabit } from "@/lib/utils/habits/deleteHabit";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function HabitDelete({
+  id,
   isDeleteDialogOpen,
   setIsDeleteDialogOpen,
 }: THabitDelete) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const form = useForm();
+
+  async function onSubmit() {
+    setIsLoading(true);
+
+    await deleteHabit(id);
+
+    setIsLoading(false);
+  }
+
   return (
     <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
       <AlertDialogContent className="sm:max-w-md">
@@ -29,7 +47,11 @@ export default function HabitDelete({
         <AlertDialogFooter className="mt-4">
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <AlertDialogAction type="submit">
+              {isLoading ? "Deleting..." : "Delete"}
+            </AlertDialogAction>
+          </form>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

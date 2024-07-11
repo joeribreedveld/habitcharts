@@ -73,6 +73,7 @@ export default function HabitActions({
       />
 
       <HabitDelete
+        id={id}
         isDeleteDialogOpen={isDeleteDialogOpen}
         setIsDeleteDialogOpen={setIsDeleteDialogOpen}
       />
