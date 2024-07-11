@@ -20,6 +20,8 @@ export async function toggleRecord(habitId: string, date: Date) {
   const startDate = startOfDay(date);
   const endDate = endOfDay(date);
 
+  console.log(startDate, endDate);
+
   const record = await prisma.record.findFirst({
     where: {
       habitId,
