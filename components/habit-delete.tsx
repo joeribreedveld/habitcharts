@@ -8,11 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-
-type THabitDelete = {
-  isDeleteDialogOpen: boolean;
-  setIsDeleteDialogOpen: (open: boolean) => void;
-};
+import { THabitDelete } from "@/lib/types/habit-types";
 
 export default function HabitDelete({
   isDeleteDialogOpen,

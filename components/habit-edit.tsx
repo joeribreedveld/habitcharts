@@ -1,6 +1,5 @@
 "use client";
 
-import { THabit } from "@/components/habit";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -26,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { THabit, THabitEdit } from "@/lib/types/habit-types";
 import { updateHabit } from "@/lib/utils/habits/updateHabit";
 import themes from "@/public/themes.json";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,11 +33,6 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-type THabitEdit = {
-  isEditDialogOpen: boolean;
-  setIsEditDialogOpen: (open: boolean) => void;
-};
 
 const formSchema = z.object({
   title: z.string().min(1).max(20),

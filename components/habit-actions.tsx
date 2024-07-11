@@ -1,6 +1,5 @@
 "use client";
 
-import { THabit } from "@/components/habit";
 import { HabitCalendar } from "@/components/habit-calendar";
 import HabitDelete from "@/components/habit-delete";
 import HabitEdit from "@/components/habit-edit";
@@ -13,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { THabit } from "@/lib/types/habit-types";
 import { Ellipsis } from "lucide-react";
 import { useState } from "react";
 

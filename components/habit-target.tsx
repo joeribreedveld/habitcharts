@@ -19,19 +19,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { THabitTarget } from "@/lib/types/habit-types";
 import { updateHabit } from "@/lib/utils/habits/updateHabit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Crosshair } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-type THabitTarget = {
-  id: string;
-  target: number;
-  isTargetDialogOpen: boolean;
-  setIsTargetDialogOpen: (value: boolean) => void;
-};
 
 const formSchema = z.object({
   target: z.string(),

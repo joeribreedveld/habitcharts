@@ -13,35 +13,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { TChartData, THabit, TRecord } from "@/lib/types/habit-types";
 import { generateChartData } from "@/lib/utils";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
 import { isSameDay } from "date-fns";
-import {
-  CircleAlert,
-  CircleCheck,
-  CircleHelp,
-  LoaderCircle,
-} from "lucide-react";
+import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react";
 import { useState } from "react";
-
-export type TRecord = {
-  id: string;
-  date: string;
-  habitId: string;
-  createdAt?: string;
-  updatedAt?: string;
-};
-
-export type THabit = {
-  id: string;
-  title: string;
-  description: string;
-  target: number;
-  theme: string;
-  records: TRecord[];
-  createdAt?: string;
-  updatedAt?: string;
-};
 
 export default function Habit({
   id,
@@ -50,11 +27,11 @@ export default function Habit({
   target,
   theme,
   records,
-}: any) {
+}: THabit) {
   const [isLoading, setIsLoading] = useState(false);
   const [isTargetDialogOpen, setIsTargetDialogOpen] = useState(false);
 
-  const chartData = generateChartData(records);
+  const chartData: TChartData[] = generateChartData(records);
 
   const date = new Date();
 
@@ -64,8 +41,6 @@ export default function Habit({
     await toggleRecord(id, date);
 
     setIsLoading(false);
-
-    console.log("Habit", date.toISOString());
   }
 
   const todayIsRecorded = records.some((record: TRecord) => {

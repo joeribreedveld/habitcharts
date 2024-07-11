@@ -1,6 +1,5 @@
 "use client";
 
-import { TRecord } from "@/components/habit";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -12,18 +11,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { THabitCalendar } from "@/lib/types/habit-types";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
-import { format, isSameDay } from "date-fns";
+import { isSameDay } from "date-fns";
 import { LoaderCircle } from "lucide-react";
-import { useState } from "react";
-
-type THabitCalendar = {
-  id: string;
-  records: TRecord[];
-  isCalendarDialogOpen: boolean;
-  setIsCalendarDialogOpen: (value: boolean) => void;
-};
+import { useEffect, useMemo, useState } from "react";
 
 export function HabitCalendar({
   id,
@@ -32,29 +25,32 @@ export function HabitCalendar({
   setIsCalendarDialogOpen,
 }: THabitCalendar) {
   const [loadingDates, setLoadingDates] = useState<Date[]>([]);
-  const [recorded, setRecorded] = useState<Date[]>(
-    records.map((record) => new Date(record.date)),
-  );
+
+  const memoizedDates = useMemo(() => {
+    return records.map((record) => new Date(record.date));
+  }, [records]);
+
+  const [recorded, setRecorded] = useState<Date[]>(memoizedDates);
+
+  useEffect(() => {
+    setRecorded(memoizedDates);
+  }, [memoizedDates]);
 
   async function handleToggleRecord(day: Date | undefined) {
     if (day) {
-      const formatteDay = new Date(format(day, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
-
       setRecorded((dates) => {
-        if (dates.some((date) => isSameDay(date, formatteDay))) {
-          return dates.filter((date) => !isSameDay(date, formatteDay));
+        if (dates.some((date) => isSameDay(date, day))) {
+          return dates.filter((date) => !isSameDay(date, day));
         }
 
-        return [...dates, formatteDay];
+        return [...dates, day];
       });
 
-      setLoadingDates((dates) => [...dates, formatteDay]);
+      setLoadingDates((dates) => [...dates, day]);
 
-      await toggleRecord(id, formatteDay);
+      await toggleRecord(id, day);
 
-      setLoadingDates((dates) =>
-        dates.filter((date) => !isSameDay(date, formatteDay)),
-      );
+      setLoadingDates((dates) => dates.filter((date) => !isSameDay(date, day)));
     }
   }
 
