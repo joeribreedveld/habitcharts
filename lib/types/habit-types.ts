@@ -1,6 +1,8 @@
+import { Record } from "@prisma/client";
+
 export type THabitCalendar = {
   id: string;
-  records: TRecord[];
+  records: Record[];
   isCalendarDialogOpen: boolean;
   setIsCalendarDialogOpen: (value: boolean) => void;
 };
@@ -29,7 +31,7 @@ export type THabit = {
   description: string;
   target: number;
   theme: string;
-  records: TRecord[];
+  records: Record[];
   createdAt?: string;
   updatedAt?: string;
 };

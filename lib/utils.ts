@@ -1,4 +1,4 @@
-import { TRecord } from "@/components/habit";
+import { Record } from "@prisma/client";
 import { type ClassValue, clsx } from "clsx";
 import {
   startOfWeek,
@@ -58,7 +58,7 @@ export function generateData() {
   ];
 }
 
-export function generateChartData(records: TRecord[]) {
+export function generateChartData(records: Record[]) {
   const data = Array.from({ length: 8 }, (_, i) => {
     const currentDate = new Date();
 
@@ -68,7 +68,7 @@ export function generateChartData(records: TRecord[]) {
     const weekEnd = endOfWeek(weekStart, { weekStartsOn: 1 });
 
     return {
-      week: records.filter((record: TRecord) => {
+      week: records.filter((record: Record) => {
         const recordDate = new Date(record.date);
 
         return isWithinInterval(recordDate, { start: weekStart, end: weekEnd });

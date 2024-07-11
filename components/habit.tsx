@@ -16,6 +16,7 @@ import {
 import { TChartData, THabit, TRecord } from "@/lib/types/habit-types";
 import { generateChartData } from "@/lib/utils";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
+import { Record } from "@prisma/client";
 import { isSameDay } from "date-fns";
 import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react";
 import { useState } from "react";
@@ -43,7 +44,7 @@ export default function Habit({
     setIsLoading(false);
   }
 
-  const todayIsRecorded = records.some((record: TRecord) => {
+  const todayIsRecorded = records.some((record: Record) => {
     return isSameDay(new Date(record.date), date);
   });
 
