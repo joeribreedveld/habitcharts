@@ -49,7 +49,7 @@ export default function Habit({
   });
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col shadow-sm">
       <CardHeader className="space-y-0 flex-row justify-between gap-4 h-full w-full">
         <div className="space-y-1.5 w-full">
           <CardTitle className="line-clamp-1 break-all">{title}</CardTitle>
