@@ -13,8 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { TChartData, THabit, TRecord } from "@/lib/types/habit-types";
-import { generateChartData } from "@/lib/utils";
+import { TChartData, THabit } from "@/lib/types/habit-types";
+import { generateChartData } from "@/lib/utils/charts/generateChartData";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
 import { Record } from "@prisma/client";
 import { format, isSameDay } from "date-fns";
@@ -47,7 +47,7 @@ export default function Habit({
     const date = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     return records.some((record: Record) => {
-      const recordDate = record.date.toISOString();
+      const recordDate = record.date;
 
       return isSameDay(recordDate, date);
     });

@@ -25,9 +25,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { THabit, THabitCreate, THabitEdit } from "@/lib/types/habit-types";
+import { THabitCreate } from "@/lib/types/habit-types";
 import { createHabit } from "@/lib/utils/habits/createHabit";
-import { updateHabit } from "@/lib/utils/habits/updateHabit";
 import themes from "@/public/themes.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogClose } from "@radix-ui/react-dialog";

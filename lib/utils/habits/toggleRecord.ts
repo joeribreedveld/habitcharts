@@ -2,7 +2,7 @@
 
 import { PrismaClient } from "@prisma/client";
 import { endOfDay, startOfDay } from "date-fns";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 const prisma = new PrismaClient();
 
@@ -37,7 +37,7 @@ export async function toggleRecord(habitId: string, date: Date) {
       },
     });
 
-    revalidatePath("/");
+    revalidateTag(`records-${habitId}`);
 
     return;
   }
@@ -49,7 +49,7 @@ export async function toggleRecord(habitId: string, date: Date) {
     },
   });
 
-  revalidatePath("/");
+  revalidateTag(`records-${habitId}`);
 
   return response;
 }

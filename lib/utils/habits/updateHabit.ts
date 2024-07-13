@@ -1,7 +1,7 @@
 "use server";
 
 import { PrismaClient } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 const prisma = new PrismaClient();
 
@@ -35,7 +35,7 @@ export async function updateHabit(
     },
   });
 
-  revalidatePath("/");
+  revalidateTag("habits");
 
   return response;
 }
