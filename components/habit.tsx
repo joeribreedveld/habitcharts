@@ -19,7 +19,7 @@ import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
 import { Record } from "@prisma/client";
 import { format, isSameDay } from "date-fns";
 import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function Habit({
   id,
@@ -31,10 +31,12 @@ export default function Habit({
 }: THabit) {
   const [isLoading, setIsLoading] = useState(false);
   const [isTargetDialogOpen, setIsTargetDialogOpen] = useState(false);
-
-  const chartData: TChartData[] = generateChartData(records);
+  const [isRecorded, setIsRecorded] = useState(false);
+  const [chartData, setChartData] = useState<TChartData[]>([]);
 
   const date = new Date(format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+
+  const chartDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
   async function handleToggleRecord() {
     setIsLoading(true);
@@ -44,9 +46,19 @@ export default function Habit({
     setIsLoading(false);
   }
 
-  const todayIsRecorded = records.some((record: Record) => {
-    return isSameDay(new Date(record.date), date);
-  });
+  useEffect(() => {
+    const isRecorded = records.some((record: Record) => {
+      const recordDate = record.date.toISOString();
+
+      return isSameDay(recordDate, chartDate);
+    });
+
+    setIsRecorded(isRecorded);
+
+    const chartData = generateChartData(records, chartDate);
+
+    setChartData(chartData);
+  }, [records]);
 
   return (
     <Card className="flex flex-col shadow-sm">
@@ -89,7 +101,7 @@ export default function Habit({
 
       <CardFooter>
         <Button
-          variant={todayIsRecorded ? "secondary" : "outline"}
+          variant={isRecorded ? "secondary" : "outline"}
           size="lg"
           className="mt-2 w-full text-xs"
           onClick={() => handleToggleRecord()}
@@ -97,12 +109,12 @@ export default function Habit({
         >
           {isLoading ? (
             <LoaderCircle className="h-4 w-4 mr-2 animate-spin" />
-          ) : todayIsRecorded ? (
+          ) : isRecorded ? (
             <CircleCheck className="h-4 w-4 mr-2" />
           ) : (
             <CircleAlert className="h-4 w-4 mr-2" />
           )}
-          {todayIsRecorded ? "Completed" : "Todo"}
+          {isRecorded ? "Completed" : "Todo"}
         </Button>
       </CardFooter>
     </Card>

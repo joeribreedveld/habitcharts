@@ -58,11 +58,9 @@ export function generateData() {
   ];
 }
 
-export function generateChartData(records: Record[]) {
+export function generateChartData(records: Record[], date: string) {
   const data = Array.from({ length: 8 }, (_, i) => {
-    const currentDate = new Date();
-
-    const weekStart = startOfWeek(subWeeks(currentDate, i), {
+    const weekStart = startOfWeek(subWeeks(date, i), {
       weekStartsOn: 1,
     });
     const weekEnd = endOfWeek(weekStart, { weekStartsOn: 1 });
