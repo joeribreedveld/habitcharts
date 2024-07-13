@@ -31,31 +31,32 @@ export default function Habit({
 }: THabit) {
   const [isLoading, setIsLoading] = useState(false);
   const [isTargetDialogOpen, setIsTargetDialogOpen] = useState(false);
-  const [isRecorded, setIsRecorded] = useState(false);
   const [chartData, setChartData] = useState<TChartData[]>([]);
 
-  const date = new Date(format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
-
-  const chartDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+  const date = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
   async function handleToggleRecord() {
     setIsLoading(true);
 
-    await toggleRecord(id, date);
+    await toggleRecord(id, new Date(date));
 
     setIsLoading(false);
   }
 
-  useEffect(() => {
-    const isRecorded = records.some((record: Record) => {
+  const isRecorded = useMemo(() => {
+    const date = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+    return records.some((record: Record) => {
       const recordDate = record.date.toISOString();
 
-      return isSameDay(recordDate, chartDate);
+      return isSameDay(recordDate, date);
     });
+  }, [records]);
 
-    setIsRecorded(isRecorded);
+  useEffect(() => {
+    const date = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-    const chartData = generateChartData(records, chartDate);
+    const chartData = generateChartData(records, date);
 
     setChartData(chartData);
   }, [records]);
