@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeWrapper } from "./theme-wrapper";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -12,6 +13,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { THabitCalendar } from "@/lib/types/habit-types";
+import { cn } from "@/lib/utils";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { format, isSameDay } from "date-fns";
@@ -23,6 +25,7 @@ export function HabitCalendar({
   records,
   isCalendarDialogOpen,
   setIsCalendarDialogOpen,
+  theme,
 }: THabitCalendar) {
   const [loadingDates, setLoadingDates] = useState<Date[]>([]);
 
@@ -58,54 +61,72 @@ export function HabitCalendar({
 
   return (
     <Dialog open={isCalendarDialogOpen} onOpenChange={setIsCalendarDialogOpen}>
-      <DialogContent className="max-w-min">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Calendar</DialogTitle>
           <DialogDescription>
             Record your habit completion for a specific day
           </DialogDescription>
         </DialogHeader>
-        <div className="py-4 w-fit">
-          <Calendar
-            weekStartsOn={1}
-            mode="single"
-            onDayClick={(day) => handleToggleRecord(day)}
-            className="rounded-md border shadow w-fit"
-            modifiers={{
-              recorded: (day) =>
-                recorded.some((record) => isSameDay(day, record)),
-            }}
-            modifiersClassNames={{
-              recorded: "bg-muted border",
-            }}
-            classNames={{
-              row: "flex w-full mt-2 gap-2",
-              day_today: "font-bold",
-              head_row: "flex gap-2",
-            }}
-            disabled={(day) => day > new Date()}
-            components={{
-              DayContent: ({ ...props }) => {
-                return (
-                  <div className="flex items-center justify-center h-8 w-8">
-                    {loadingDates.some((date) =>
-                      isSameDay(date, props.date),
-                    ) ? (
-                      <LoaderCircle className="h-4 w-4 animate-spin" />
-                    ) : (
-                      props.date.getDate()
-                    )}
-                  </div>
-                );
-              },
-              IconLeft: ({ ...props }) => (
-                <ChevronLeftIcon className="h-4 w-4" />
-              ),
-              IconRight: ({ ...props }) => (
-                <ChevronRightIcon className="h-4 w-4" />
-              ),
-            }}
-          />
+        <div className="my-4 flex justify-center items-center w-full">
+          <ThemeWrapper theme={theme}>
+            <Calendar
+              weekStartsOn={1}
+              mode="single"
+              onDayClick={(day) => handleToggleRecord(day)}
+              className="w-full p-0 sm:border sm:shadow sm:rounded-md sm:p-3 sm:w-fit"
+              modifiers={{
+                recorded: (day) =>
+                  recorded.some((record) => isSameDay(day, record)),
+              }}
+              // modifiersClassNames={{
+              //   recorded: "bg-blue-500 text-white hover:bg-blue-500/90",
+              // }}
+              classNames={{
+                row: "flex w-full mt-2 justify-between sm:justify-center",
+                day_today: "font-semibold",
+                head_row:
+                  "flex gap-2 sm:gap-4 justify-between sm:justify-center",
+                day: "w-12 h-12 rounded-full font-normal aria-selected:opacity-100 transition-all",
+              }}
+              disabled={(day) => day > new Date()}
+              components={{
+                // Day: ({ ...props }) => {
+                //   return (
+                //     <button
+                //       className="h-8 w-8 font-normal flex items-center justify-center gap-4"
+                //       {...props}
+                //     ></button>
+                //   );
+                // },
+                DayContent: ({ ...props }) => {
+                  return (
+                    <div
+                      className={cn(
+                        "flex items-center justify-center m-1.5 rounded-full aspect-square hover:bg-muted",
+                        recorded.some((date) => isSameDay(date, props.date)) &&
+                          "bg-primary text-white hover:bg-primary/90",
+                      )}
+                    >
+                      {loadingDates.some((date) =>
+                        isSameDay(date, props.date),
+                      ) ? (
+                        <LoaderCircle className="h-4 w-4 animate-spin" />
+                      ) : (
+                        props.date.getDate()
+                      )}
+                    </div>
+                  );
+                },
+                IconLeft: ({ ...props }) => (
+                  <ChevronLeftIcon className="h-4 w-4" />
+                ),
+                IconRight: ({ ...props }) => (
+                  <ChevronRightIcon className="h-4 w-4" />
+                ),
+              }}
+            />
+          </ThemeWrapper>
         </div>
         <DialogFooter>
           <DialogClose asChild>

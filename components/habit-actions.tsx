@@ -56,6 +56,7 @@ export default function HabitActions({
 
       <HabitCalendar
         id={id}
+        theme={theme}
         records={records}
         isCalendarDialogOpen={isCalendarDialogOpen}
         setIsCalendarDialogOpen={setIsCalendarDialogOpen}

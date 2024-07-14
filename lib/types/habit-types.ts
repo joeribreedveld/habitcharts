@@ -5,6 +5,7 @@ export type THabitCalendar = {
   records: Record[];
   isCalendarDialogOpen: boolean;
   setIsCalendarDialogOpen: (value: boolean) => void;
+  theme: string;
 };
 
 export type THabitChart = {
