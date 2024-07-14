@@ -30,6 +30,7 @@ import { createHabit } from "@/lib/utils/habits/createHabit";
 import themes from "@/public/themes.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -178,7 +179,10 @@ export default function HabitCreate({
                 </Button>
               </DialogClose>
               <Button type="submit">
-                {isLoading ? "Creating..." : "Create"}
+                {isLoading && (
+                  <LoaderCircle className="h-4 w-4 animate-spin mr-2" />
+                )}
+                Create
               </Button>
             </DialogFooter>
           </form>
