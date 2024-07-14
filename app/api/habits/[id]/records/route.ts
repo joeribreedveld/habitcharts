@@ -14,5 +14,9 @@ export async function GET(
     },
   });
 
-  return Response.json({ records: response });
+  return new Response(JSON.stringify({ records: response }), {
+    headers: {
+      "content-type": "application/json",
+    },
+  });
 }

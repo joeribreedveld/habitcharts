@@ -1,5 +1,3 @@
-import { getBaseUrl } from "@/lib/utils/getBaseUrl";
-
 export async function getHabits() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/habits`, {
     next: {
