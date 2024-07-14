@@ -5,6 +5,8 @@ export async function getHabits() {
     },
   });
 
+  console.log("test", response);
+
   if (!response.ok) {
     throw new Error("Failed to fetch habits");
   }
