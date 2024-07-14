@@ -1,5 +1,5 @@
 export async function getHabits() {
-  const response = await fetch("http://localhost:3000/api/habits", {
+  const response = await fetch(`${process.env.BASE_URL}/api/habits`, {
     next: {
       tags: ["habits"],
     },

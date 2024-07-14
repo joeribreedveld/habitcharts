@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeWrapper } from "./theme-wrapper";
+import { ThemeWrapper } from "@/components/theme-wrapper";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -79,9 +79,6 @@ export function HabitCalendar({
                 recorded: (day) =>
                   recorded.some((record) => isSameDay(day, record)),
               }}
-              // modifiersClassNames={{
-              //   recorded: "bg-blue-500 text-white hover:bg-blue-500/90",
-              // }}
               classNames={{
                 row: "flex w-full mt-2 justify-between sm:justify-center",
                 day_today: "font-semibold",

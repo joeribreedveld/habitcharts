@@ -1,6 +1,6 @@
 export async function getRecords(habitId: string) {
   const response = await fetch(
-    `http://localhost:3000/api/habits/${habitId}/records`,
+    `${process.env.BASE_URL}/api/habits/${habitId}/records`,
     {
       next: {
         tags: [`records-${habitId}`],
