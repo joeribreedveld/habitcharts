@@ -1,3 +1,5 @@
+"use server";
+
 import Habit from "@/components/habit";
 import { THabit } from "@/lib/types/habit-types";
 import { getHabits } from "@/lib/utils/habits/getHabits";
