@@ -1,5 +1,5 @@
 export function getBaseUrl() {
   return process.env.NODE_ENV === "production"
-    ? "https://habitcharts.vercel.app"
+    ? process.env.VERCEL_URL
     : "http://localhost:3000";
 }
