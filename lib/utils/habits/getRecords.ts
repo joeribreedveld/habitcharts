@@ -1,6 +1,8 @@
+import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+
 export async function getRecords(habitId: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}/api/habits/${habitId}/records`,
+    `${getBaseUrl()}/api/habits/${habitId}/records`,
     {
       next: {
         tags: [`records-${habitId}`],
