@@ -1,5 +1,5 @@
 export async function getHabits() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/habits`, {
+  const response = await fetch("https://habitcharts.vercel.app/api/habits", {
     next: {
       tags: ["habits"],
     },
