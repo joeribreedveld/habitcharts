@@ -7,7 +7,9 @@ import { getRecords } from "@/lib/utils/habits/getRecords";
 import { Record } from "@prisma/client";
 
 export default async function Page() {
-  const habits: THabit[] = await getHabits();
+  // const habits: THabit[] = await getHabits();
+
+  const habits: THabit[] = [];
 
   return (
     <main className="px-4 sm:container py-12">
