@@ -75,6 +75,13 @@ export default function HabitEdit({
 
     setIsEditDialogOpen(false);
 
+    // form.reset({
+    //   title: values.title,
+    //   description: values.description,
+    //   target: values.target,
+    //   theme: values.theme,
+    // });
+
     setIsLoading(false);
   }
 
