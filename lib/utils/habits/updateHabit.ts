@@ -36,6 +36,7 @@ export async function updateHabit(
   });
 
   revalidateTag("habits");
+  revalidateTag(`records-${id}`);
 
   return response;
 }
