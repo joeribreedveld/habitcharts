@@ -54,7 +54,13 @@ export function HabitCalendar({
   async function handleQueueDate(day: Date) {
     const formattedDate = new Date(format(day, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
 
-    setQueuedDates((dates) => [...dates, formattedDate]);
+    setQueuedDates((dates) => {
+      if (dates.some((date) => isSameDay(date, formattedDate))) {
+        return dates.filter((date) => !isSameDay(date, formattedDate));
+      }
+
+      return [...dates, formattedDate];
+    });
 
     setRecorded((dates) => {
       if (dates.some((date) => isSameDay(date, formattedDate))) {
