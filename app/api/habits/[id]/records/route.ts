@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { revalidateTag } from "next/cache";
 
 const prisma = new PrismaClient();
 
@@ -13,6 +14,8 @@ export async function GET(
       habitId: id,
     },
   });
+
+  revalidateTag(`records-${id}`);
 
   return new Response(JSON.stringify({ records: response }), {
     headers: {

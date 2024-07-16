@@ -31,6 +31,7 @@ import themes from "@/public/themes.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { LoaderCircle } from "lucide-react";
+import { revalidateTag } from "next/cache";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -73,6 +74,8 @@ export default function HabitEdit({
       values.description,
       values.theme,
     );
+
+    revalidateTag("habits");
 
     setIsEditDialogOpen(false);
 
