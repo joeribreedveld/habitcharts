@@ -1,5 +1,4 @@
-"use client";
-
+import HabitToggle from "./habit-toggle";
 import HabitActions from "@/components/habit-actions";
 import HabitChart from "@/components/habit-chart";
 import HabitTarget from "@/components/habit-target";
@@ -15,51 +14,31 @@ import {
 } from "@/components/ui/card";
 import { TChartData, THabit } from "@/lib/types/habit-types";
 import { generateChartData } from "@/lib/utils/charts/generateChartData";
+import { getRecords } from "@/lib/utils/habits/getRecords";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
 import { Record } from "@prisma/client";
 import { format, isSameDay } from "date-fns";
 import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense } from "react";
 
-export default function Habit({
+export default async function Habit({
   id,
   title,
   description,
   target,
   theme,
-  records,
 }: THabit) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isTargetDialogOpen, setIsTargetDialogOpen] = useState(false);
-  const [chartData, setChartData] = useState<TChartData[]>([]);
-
   const date = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-  async function handleToggleRecord() {
-    setIsLoading(true);
+  const records: Record[] = await getRecords(id);
 
-    await toggleRecord(id, new Date(date));
+  const isRecorded = records.some((record: Record) => {
+    const recordDate = record.date;
 
-    setIsLoading(false);
-  }
+    return isSameDay(recordDate, new Date(date));
+  });
 
-  const isRecorded = useMemo(() => {
-    const date = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
-    return records.some((record: Record) => {
-      const recordDate = record.date;
-
-      return isSameDay(recordDate, date);
-    });
-  }, [records]);
-
-  useEffect(() => {
-    const date = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
-    const chartData = generateChartData(records, date);
-
-    setChartData(chartData);
-  }, [records]);
+  const chartData = generateChartData(records, date);
 
   return (
     <Card className="flex flex-col shadow-sm">
@@ -69,13 +48,6 @@ export default function Habit({
           <CardDescription>{description}</CardDescription>
         </div>
         <div className="flex h-fit items-center gap-2">
-          <HabitTarget
-            id={id}
-            target={target}
-            isTargetDialogOpen={isTargetDialogOpen}
-            setIsTargetDialogOpen={setIsTargetDialogOpen}
-          />
-
           <HabitActions
             id={id}
             title={title}
@@ -87,36 +59,26 @@ export default function Habit({
         </div>
       </CardHeader>
       <CardContent>
-        {records.length === 0 ? (
+        <Suspense fallback={<p>Loading...</p>}>
+          <ThemeWrapper theme={theme}>
+            <HabitChart target={target} chartData={chartData} />
+          </ThemeWrapper>
+        </Suspense>
+        {/* {records.length === 0 ? (
           <div className="aspect-video border-dashed border rounded-md flex items-center justify-center">
             <p className="text-center text-muted-foreground text-xs">
               No records found
             </p>
           </div>
         ) : (
-          <ThemeWrapper theme={theme}>
-            <HabitChart target={target} chartData={chartData} />
-          </ThemeWrapper>
-        )}
+       
+        )} */}
       </CardContent>
 
       <CardFooter>
-        <Button
-          variant={isRecorded ? "secondary" : "outline"}
-          size="lg"
-          className="mt-2 w-full text-xs"
-          onClick={() => handleToggleRecord()}
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <LoaderCircle className="h-4 w-4 mr-2 animate-spin" />
-          ) : isRecorded ? (
-            <CircleCheck className="h-4 w-4 mr-2" />
-          ) : (
-            <CircleAlert className="h-4 w-4 mr-2" />
-          )}
-          {isRecorded ? "Completed" : "Todo"}
-        </Button>
+        <Suspense fallback={<p>Loading...</p>}>
+          <HabitToggle isRecorded={isRecorded} id={id} date={date} />
+        </Suspense>
       </CardFooter>
     </Card>
   );

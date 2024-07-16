@@ -1,5 +1,6 @@
 "use client";
 
+import HabitTarget from "./habit-target";
 import { HabitCalendar } from "@/components/habit-calendar";
 import HabitDelete from "@/components/habit-delete";
 import HabitEdit from "@/components/habit-edit";
@@ -12,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { THabit } from "@/lib/types/habit-types";
+import { THabitActions } from "@/lib/types/habit-types";
 import { Ellipsis } from "lucide-react";
 import { useState } from "react";
 
@@ -23,13 +24,21 @@ export default function HabitActions({
   target,
   theme,
   records,
-}: THabit) {
+}: THabitActions) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isCalendarDialogOpen, setIsCalendarDialogOpen] = useState(false);
+  const [isTargetDialogOpen, setIsTargetDialogOpen] = useState(false);
 
   return (
     <>
+      <HabitTarget
+        id={id}
+        target={target}
+        isTargetDialogOpen={isTargetDialogOpen}
+        setIsTargetDialogOpen={setIsTargetDialogOpen}
+      />
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon">

@@ -33,6 +33,16 @@ export type THabit = {
   description: string;
   target: number;
   theme: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type THabitActions = {
+  id: string;
+  title: string;
+  description: string;
+  target: number;
+  theme: string;
   records: Record[];
   createdAt?: string;
   updatedAt?: string;
@@ -46,6 +56,7 @@ export type TChartData = {
 export type THabitEdit = {
   isEditDialogOpen: boolean;
   setIsEditDialogOpen: (open: boolean) => void;
+  records: Record[];
 };
 
 export type THabitTarget = {

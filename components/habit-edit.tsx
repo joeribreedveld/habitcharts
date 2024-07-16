@@ -75,8 +75,6 @@ export default function HabitEdit({
       values.theme,
     );
 
-    revalidateTag("habits");
-
     setIsEditDialogOpen(false);
 
     setIsLoading(false);
