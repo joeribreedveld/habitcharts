@@ -47,8 +47,11 @@ export default function HabitDelete({
         <AlertDialogFooter className="mt-4">
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <AlertDialogAction type="submit">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="w-full sm:w-fit"
+          >
+            <AlertDialogAction type="submit" className="w-full">
               {isLoading ? "Deleting..." : "Delete"}
             </AlertDialogAction>
           </form>

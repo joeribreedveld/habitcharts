@@ -1,9 +1,8 @@
 import HabitToggle from "./habit-toggle";
+import { Skeleton } from "./ui/skeleton";
 import HabitActions from "@/components/habit-actions";
 import HabitChart from "@/components/habit-chart";
-import HabitTarget from "@/components/habit-target";
 import { ThemeWrapper } from "@/components/theme-wrapper";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,13 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { TChartData, THabit } from "@/lib/types/habit-types";
+import { THabit } from "@/lib/types/habit-types";
 import { generateChartData } from "@/lib/utils/charts/generateChartData";
 import { getRecords } from "@/lib/utils/habits/getRecords";
-import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
 import { Record } from "@prisma/client";
 import { format, isSameDay } from "date-fns";
-import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react";
+import { Loader } from "lucide-react";
 import { Suspense } from "react";
 
 export default async function Habit({
@@ -59,20 +57,25 @@ export default async function Habit({
         </div>
       </CardHeader>
       <CardContent>
-        <Suspense fallback={<p>Loading...</p>}>
-          <ThemeWrapper theme={theme}>
-            <HabitChart target={target} chartData={chartData} />
-          </ThemeWrapper>
-        </Suspense>
-        {/* {records.length === 0 ? (
+        {records.length === 0 ? (
           <div className="aspect-video border-dashed border rounded-md flex items-center justify-center">
             <p className="text-center text-muted-foreground text-xs">
               No records found
             </p>
           </div>
         ) : (
-       
-        )} */}
+          <Suspense
+            fallback={
+              <Skeleton className="bg-muted aspect-video rounded-md flex justify-center items-center">
+                <Loader className="animate-spin w-4 h-4 text-muted-foreground" />
+              </Skeleton>
+            }
+          >
+            <ThemeWrapper theme={theme}>
+              <HabitChart target={target} chartData={chartData} />
+            </ThemeWrapper>
+          </Suspense>
+        )}
       </CardContent>
 
       <CardFooter>
