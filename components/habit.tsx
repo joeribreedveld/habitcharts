@@ -64,24 +64,14 @@ export default async function Habit({
             </p>
           </div>
         ) : (
-          <Suspense
-            fallback={
-              <Skeleton className="bg-muted aspect-video rounded-md flex justify-center items-center">
-                <Loader className="animate-spin w-4 h-4 text-muted-foreground" />
-              </Skeleton>
-            }
-          >
-            <ThemeWrapper theme={theme}>
-              <HabitChart target={target} chartData={chartData} />
-            </ThemeWrapper>
-          </Suspense>
+          <ThemeWrapper theme={theme}>
+            <HabitChart target={target} chartData={chartData} />
+          </ThemeWrapper>
         )}
       </CardContent>
 
       <CardFooter>
-        <Suspense fallback={<p>Loading...</p>}>
-          <HabitToggle isRecorded={isRecorded} id={id} date={date} />
-        </Suspense>
+        <HabitToggle isRecorded={isRecorded} id={id} date={date} />
       </CardFooter>
     </Card>
   );

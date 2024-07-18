@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: TLayout) {
   return (
     <html lang="en" className="h-full">
-      <body className={cn(inter.className, "h-full")}>
+      <body className={cn(inter.className, "h-full flex flex-col")}>
         <HabitHeader />
         {children}
       </body>

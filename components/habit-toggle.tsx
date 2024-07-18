@@ -21,23 +21,21 @@ export default function HabitToggle({ id, date, isRecorded }: THabitToggle) {
   }
 
   return (
-    <Suspense fallback={<LoaderCircle className="h-8 w-8" />}>
-      <Button
-        variant={isRecorded ? "secondary" : "outline"}
-        size="lg"
-        className="mt-2 w-full text-xs"
-        onClick={() => handleToggleRecord()}
-        disabled={isPending}
-      >
-        {isPending ? (
-          <Loader className="h-4 w-4 mr-2 animate-spin" />
-        ) : isRecorded ? (
-          <CircleCheck className="h-4 w-4 mr-2" />
-        ) : (
-          <CircleAlert className="h-4 w-4 mr-2" />
-        )}
-        {isPending ? "" : isRecorded ? "Completed" : "Todo"}
-      </Button>
-    </Suspense>
+    <Button
+      variant={isRecorded ? "secondary" : "outline"}
+      size="lg"
+      className="mt-2 w-full text-xs"
+      onClick={() => handleToggleRecord()}
+      disabled={isPending}
+    >
+      {isPending ? (
+        <Loader className="h-4 w-4 mr-2 animate-spin" />
+      ) : isRecorded ? (
+        <CircleCheck className="h-4 w-4 mr-2" />
+      ) : (
+        <CircleAlert className="h-4 w-4 mr-2" />
+      )}
+      {isPending ? "" : isRecorded ? "Completed" : "Todo"}
+    </Button>
   );
 }
