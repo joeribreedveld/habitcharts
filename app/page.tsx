@@ -1,6 +1,7 @@
 "use server";
 
 import Habit from "@/components/habit";
+import HabitSkeleton from "@/components/habit-skeleton";
 import { Skeleton } from "@/components/ui/skeleton";
 import { THabit } from "@/lib/types/habit-types";
 import { getHabits } from "@/lib/utils/habits/getHabits";
@@ -15,12 +16,12 @@ export default async function Page() {
         <Suspense
           fallback={
             <>
-              <Skeleton className="w-full aspect-video" />
-              <Skeleton className="w-full aspect-video" />
-              <Skeleton className="w-full aspect-video" />
-              <Skeleton className="w-full aspect-video" />
-              <Skeleton className="w-full aspect-video" />
-              <Skeleton className="w-full aspect-video" />
+              <HabitSkeleton />
+              <HabitSkeleton />
+              <HabitSkeleton />
+              <HabitSkeleton />
+              <HabitSkeleton />
+              <HabitSkeleton />
             </>
           }
         >
