@@ -31,8 +31,7 @@ import themes from "@/public/themes.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { LoaderCircle } from "lucide-react";
-import { revalidateTag } from "next/cache";
-import { useState, useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -64,6 +63,15 @@ export default function HabitEdit({
     },
   });
 
+  useEffect(() => {
+    form.reset({
+      title,
+      description,
+      target: target.toString(),
+      theme,
+    });
+  }, [form, target]);
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       await updateHabit(
@@ -73,12 +81,14 @@ export default function HabitEdit({
         values.description,
         values.theme,
       );
-
-      if (!isPending) {
-        setIsEditDialogOpen(false);
-      }
     });
   }
+
+  useEffect(() => {
+    if (!isPending) {
+      setIsEditDialogOpen(false);
+    }
+  }, [isPending, setIsEditDialogOpen]);
 
   return (
     <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
@@ -183,7 +193,7 @@ export default function HabitEdit({
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit">
+              <Button type="submit" disabled={isPending}>
                 {isPending && (
                   <LoaderCircle className="h-4 w-4 animate-spin mr-2" />
                 )}

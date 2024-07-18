@@ -15,7 +15,6 @@ import { generateChartData } from "@/lib/utils/charts/generateChartData";
 import { getRecords } from "@/lib/utils/habits/getRecords";
 import { Record } from "@prisma/client";
 import { format, isSameDay } from "date-fns";
-import { Suspense } from "react";
 
 export default async function Habit({
   id,

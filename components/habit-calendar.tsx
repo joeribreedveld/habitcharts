@@ -74,14 +74,16 @@ export function HabitCalendar({
   async function onSubmit() {
     startTransition(async () => {
       await toggleRecords(id, queuedDates);
-
-      if (!isPending) {
-        setIsCalendarDialogOpen(false);
-
-        setQueuedDates([]);
-      }
     });
   }
+
+  useEffect(() => {
+    if (!isPending) {
+      setIsCalendarDialogOpen(false);
+
+      setQueuedDates([]);
+    }
+  }, [isPending, setIsCalendarDialogOpen]);
 
   return (
     <Dialog open={isCalendarDialogOpen} onOpenChange={setIsCalendarDialogOpen}>

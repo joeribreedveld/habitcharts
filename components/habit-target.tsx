@@ -23,7 +23,7 @@ import { THabitTarget } from "@/lib/types/habit-types";
 import { updateHabit } from "@/lib/utils/habits/updateHabit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Crosshair, LoaderCircle } from "lucide-react";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -49,12 +49,14 @@ export default function HabitTarget({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       await updateHabit(id, parseInt(values.target));
-
-      if (!isPending) {
-        setIsTargetDialogOpen(false);
-      }
     });
   }
+
+  useEffect(() => {
+    if (!isPending) {
+      setIsTargetDialogOpen(false);
+    }
+  }, [isPending, setIsTargetDialogOpen]);
 
   return (
     <Dialog open={isTargetDialogOpen} onOpenChange={setIsTargetDialogOpen}>
@@ -95,7 +97,7 @@ export default function HabitTarget({
               />
             </div>
             <DialogFooter className="mt-4">
-              <Button type="submit">
+              <Button type="submit" disabled={isPending}>
                 {isPending && (
                   <LoaderCircle className="h-4 w-4 animate-spin mr-2" />
                 )}
