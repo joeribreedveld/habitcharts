@@ -70,7 +70,7 @@ export default function HabitEdit({
       target: target.toString(),
       theme,
     });
-  }, [form, target]);
+  }, [description, form, target, theme, title]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
