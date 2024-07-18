@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { toggleRecord } from "@/lib/utils/habits/toggleRecord";
-import { CircleAlert, CircleCheck, Loader, LoaderCircle } from "lucide-react";
-import { Suspense, useTransition } from "react";
+import { CircleAlert, CircleCheck, Loader } from "lucide-react";
+import { useTransition } from "react";
 
 type THabitToggle = {
   id: string;

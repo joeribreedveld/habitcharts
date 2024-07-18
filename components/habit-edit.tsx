@@ -32,7 +32,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { LoaderCircle } from "lucide-react";
 import { revalidateTag } from "next/cache";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -52,7 +52,7 @@ export default function HabitEdit({
   isEditDialogOpen,
   setIsEditDialogOpen,
 }: THabitEdit & THabit) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,19 +65,19 @@ export default function HabitEdit({
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true);
+    startTransition(async () => {
+      await updateHabit(
+        id,
+        parseInt(values.target),
+        values.title,
+        values.description,
+        values.theme,
+      );
 
-    await updateHabit(
-      id,
-      parseInt(values.target),
-      values.title,
-      values.description,
-      values.theme,
-    );
-
-    setIsEditDialogOpen(false);
-
-    setIsLoading(false);
+      if (!isPending) {
+        setIsEditDialogOpen(false);
+      }
+    });
   }
 
   return (
@@ -184,7 +184,7 @@ export default function HabitEdit({
                 </Button>
               </DialogClose>
               <Button type="submit">
-                {isLoading && (
+                {isPending && (
                   <LoaderCircle className="h-4 w-4 animate-spin mr-2" />
                 )}
                 Save

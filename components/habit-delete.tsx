@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { THabitDelete } from "@/lib/types/habit-types";
 import { deleteHabit } from "@/lib/utils/habits/deleteHabit";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 export default function HabitDelete({
@@ -20,16 +20,14 @@ export default function HabitDelete({
   isDeleteDialogOpen,
   setIsDeleteDialogOpen,
 }: THabitDelete) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm();
 
   async function onSubmit() {
-    setIsLoading(true);
-
-    await deleteHabit(id);
-
-    setIsLoading(false);
+    startTransition(async () => {
+      await deleteHabit(id);
+    });
   }
 
   return (
@@ -52,7 +50,7 @@ export default function HabitDelete({
             className="w-full sm:w-fit"
           >
             <AlertDialogAction type="submit" className="w-full">
-              {isLoading ? "Deleting..." : "Delete"}
+              {isPending ? "Deleting..." : "Delete"}
             </AlertDialogAction>
           </form>
         </AlertDialogFooter>

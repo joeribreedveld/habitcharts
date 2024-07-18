@@ -20,7 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { format, isSameDay, set } from "date-fns";
 import { LoaderCircle } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -34,7 +34,7 @@ export function HabitCalendar({
   theme,
 }: THabitCalendar) {
   const [queuedDates, setQueuedDates] = useState<Date[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -72,15 +72,15 @@ export function HabitCalendar({
   }
 
   async function onSubmit() {
-    setIsLoading(true);
+    startTransition(async () => {
+      await toggleRecords(id, queuedDates);
 
-    await toggleRecords(id, queuedDates);
+      if (!isPending) {
+        setIsCalendarDialogOpen(false);
 
-    setIsLoading(false);
-
-    setIsCalendarDialogOpen(false);
-
-    setQueuedDates([]);
+        setQueuedDates([]);
+      }
+    });
   }
 
   return (
@@ -151,8 +151,8 @@ export function HabitCalendar({
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit">
-                {isLoading && (
+              <Button type="submit" disabled={isPending}>
+                {isPending && (
                   <LoaderCircle className="h-4 w-4 animate-spin mr-2" />
                 )}
                 Save

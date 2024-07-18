@@ -1,9 +1,9 @@
 "use client";
 
-import HabitTarget from "./habit-target";
 import { HabitCalendar } from "@/components/habit-calendar";
 import HabitDelete from "@/components/habit-delete";
 import HabitEdit from "@/components/habit-edit";
+import HabitTarget from "@/components/habit-target";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,

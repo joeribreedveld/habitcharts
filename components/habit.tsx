@@ -1,7 +1,6 @@
-import HabitToggle from "./habit-toggle";
-import { Skeleton } from "./ui/skeleton";
 import HabitActions from "@/components/habit-actions";
 import HabitChart from "@/components/habit-chart";
+import HabitToggle from "@/components/habit-toggle";
 import { ThemeWrapper } from "@/components/theme-wrapper";
 import {
   Card,
@@ -16,7 +15,6 @@ import { generateChartData } from "@/lib/utils/charts/generateChartData";
 import { getRecords } from "@/lib/utils/habits/getRecords";
 import { Record } from "@prisma/client";
 import { format, isSameDay } from "date-fns";
-import { Loader } from "lucide-react";
 import { Suspense } from "react";
 
 export default async function Habit({
