@@ -122,7 +122,7 @@ export default function HabitCreate({
                 name="target"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Target</FormLabel>
+                    <FormLabel>Weekly target (days)</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -142,7 +142,7 @@ export default function HabitCreate({
                 name="theme"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Theme</FormLabel>
+                    <FormLabel>Color</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
@@ -150,7 +150,7 @@ export default function HabitCreate({
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select a theme" />
+                            <SelectValue placeholder="Select a color" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>

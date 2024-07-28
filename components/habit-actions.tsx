@@ -32,12 +32,12 @@ export default function HabitActions({
 
   return (
     <>
-      <HabitTarget
+      {/* <HabitTarget
         id={id}
         target={target}
         isTargetDialogOpen={isTargetDialogOpen}
         setIsTargetDialogOpen={setIsTargetDialogOpen}
-      />
+      /> */}
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

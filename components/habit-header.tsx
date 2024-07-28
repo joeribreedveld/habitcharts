@@ -2,6 +2,7 @@
 
 import HabitCreate from "@/components/habit-create";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function HabitHeader() {
@@ -16,7 +17,9 @@ export default function HabitHeader() {
         </p>
       </div>
       <div className="flex items-center gap-4">
-        <Button variant="secondary">Account</Button>
+        {/* <Link href="/settings">
+          <Button variant="secondary">Settings</Button>
+        </Link> */}
         <Button onClick={() => setIsCreateDialogOpen(true)}>New habit</Button>
       </div>
 

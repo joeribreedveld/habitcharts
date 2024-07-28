@@ -135,11 +135,11 @@ export default function HabitEdit({
                 name="target"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Target</FormLabel>
+                    <FormLabel>Days per week</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Target"
+                        placeholder="Days per week"
                         max={7}
                         min={1}
                         {...field}
@@ -155,7 +155,7 @@ export default function HabitEdit({
                 name="theme"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Theme</FormLabel>
+                    <FormLabel>Color</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
@@ -163,7 +163,7 @@ export default function HabitEdit({
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select a theme" />
+                            <SelectValue placeholder="Select a color" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
