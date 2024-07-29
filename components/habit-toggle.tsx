@@ -35,7 +35,7 @@ export default function HabitToggle({ id, date, isRecorded }: THabitToggle) {
       ) : (
         <CircleAlert className="h-4 w-4 mr-2" />
       )}
-      {isPending ? "" : isRecorded ? "Completed" : "Complete"}
+      {isPending ? "" : isRecorded ? "Completed" : "Todo"}
     </Button>
   );
 }

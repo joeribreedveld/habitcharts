@@ -135,7 +135,7 @@ export default function HabitEdit({
                 name="target"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Days per week</FormLabel>
+                    <FormLabel>Target (days per week)</FormLabel>
                     <FormControl>
                       <Input
                         type="number"

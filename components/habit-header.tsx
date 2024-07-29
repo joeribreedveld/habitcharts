@@ -13,7 +13,7 @@ export default function HabitHeader() {
       <div>
         <h1 className="text-xl font-bold tracking-tight">Habitcharts</h1>
         <p className="text-muted-foreground">
-          Track your habits and reach your goals.
+          Track your habits and reach your goals
         </p>
       </div>
       <div className="flex items-center gap-4">
