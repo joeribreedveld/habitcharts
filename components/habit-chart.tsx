@@ -7,9 +7,14 @@ import { Bar, BarChart, Cell, ReferenceLine, XAxis, YAxis } from "recharts";
 const chartConfig: ChartConfig = {};
 
 export default function HabitChart({ target, chartData }: THabitChart) {
+  const maxValue = Math.max(
+    ...chartData.map((entry: TChartData) => entry.week),
+  );
+  const yAxisTicks = Array.from({ length: maxValue + 1 }, (_, i) => i);
+
   return (
-    <ChartContainer config={chartConfig} className="aspect-video">
-      <BarChart data={chartData} barCategoryGap="12.5%">
+    <ChartContainer config={chartConfig} className="aspect-video text-primary">
+      <BarChart data={chartData} barCategoryGap="20%">
         <Bar dataKey="week" radius={[4, 4, 0, 0]}>
           {chartData.map((entry: TChartData, index: number) => (
             <Cell
@@ -20,9 +25,24 @@ export default function HabitChart({ target, chartData }: THabitChart) {
             />
           ))}
         </Bar>
-        <XAxis dataKey="date" tickLine={false} axisLine={false} height={16} />
 
-        <ReferenceLine y={target} />
+        <XAxis
+          dataKey="date"
+          tickLine={false}
+          axisLine={false}
+          height={24}
+          tickMargin={8}
+        />
+
+        {yAxisTicks.map((tick) => (
+          <ReferenceLine key={tick} y={tick} className="opacity-50" />
+        ))}
+
+        <ReferenceLine
+          y={target}
+          className="[&_.recharts-reference-line-line]:stroke-primary/50"
+        />
+
         <YAxis
           orientation="right"
           domain={[0, target]}
@@ -30,6 +50,7 @@ export default function HabitChart({ target, chartData }: THabitChart) {
           axisLine={false}
           tickLine={false}
           width={16}
+          className="[&_.recharts-cartesian-axis-tick:last-child_text]:fill-primary [&_.recharts-cartesian-axis-tick:last-child_text]:font-medium"
         />
       </BarChart>
     </ChartContainer>

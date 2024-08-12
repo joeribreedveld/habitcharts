@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { THabitActions } from "@/lib/types/habit-types";
-import { Ellipsis } from "lucide-react";
+import { BarChartBig, Ellipsis, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 
 export default function HabitActions({

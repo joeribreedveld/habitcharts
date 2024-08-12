@@ -24,7 +24,7 @@ export default function HabitToggle({ id, date, isRecorded }: THabitToggle) {
     <Button
       variant={isRecorded ? "secondary" : "outline"}
       size="lg"
-      className="mt-2 w-full text-xs"
+      className="w-full text-xs"
       onClick={() => handleToggleRecord()}
       disabled={isPending}
     >

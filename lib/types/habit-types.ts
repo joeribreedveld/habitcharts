@@ -13,6 +13,11 @@ export type THabitChart = {
   chartData: TChartData[];
 };
 
+export type THabitWeek = {
+  target: number;
+  records: Record[];
+};
+
 export type THabitDelete = {
   id: string;
   isDeleteDialogOpen: boolean;

@@ -1,3 +1,5 @@
+import HabitWeek from "./habit-week";
+import HabitYear from "./habit-year";
 import HabitActions from "@/components/habit-actions";
 import HabitChart from "@/components/habit-chart";
 import HabitToggle from "@/components/habit-toggle";
