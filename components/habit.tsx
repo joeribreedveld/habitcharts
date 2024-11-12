@@ -38,7 +38,7 @@ export default async function Habit({
   const chartData = generateChartData(records, date);
 
   return (
-    <Card className="flex flex-col shadow-sm">
+    <Card className="flex flex-col shadow-none">
       <CardHeader className="space-y-0 flex-row justify-between gap-4 h-full w-full">
         <div className="space-y-1.5 w-full">
           <CardTitle className="line-clamp-1 break-all">{title}</CardTitle>

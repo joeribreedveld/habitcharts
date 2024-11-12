@@ -2,7 +2,6 @@
 
 import HabitCreate from "@/components/habit-create";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { useState } from "react";
 
 export default function HabitHeader() {
@@ -11,7 +10,7 @@ export default function HabitHeader() {
   return (
     <header className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center px-4 mt-12 sm:container">
       <div>
-        <h1 className="text-xl font-bold tracking-tight">Habitcharts</h1>
+        <h1 className="text-lg font-bold tracking-tight">Habitcharts</h1>
         <p className="text-muted-foreground">
           Track your habits and reach your goals
         </p>
@@ -20,7 +19,13 @@ export default function HabitHeader() {
         {/* <Link href="/settings">
           <Button variant="secondary">Settings</Button>
         </Link> */}
-        <Button onClick={() => setIsCreateDialogOpen(true)}>New habit</Button>
+        <Button
+          size="lg"
+          className="w-fit shadow-none"
+          onClick={() => setIsCreateDialogOpen(true)}
+        >
+          New Habit
+        </Button>
       </div>
 
       <HabitCreate
