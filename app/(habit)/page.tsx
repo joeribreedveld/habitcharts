@@ -2,7 +2,6 @@
 
 import Habit from "@/components/habit";
 import HabitSkeleton from "@/components/habit-skeleton";
-import { Skeleton } from "@/components/ui/skeleton";
 import { THabit } from "@/lib/types/habit-types";
 import { getHabits } from "@/lib/utils/habits/getHabits";
 import { Suspense } from "react";
