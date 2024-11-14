@@ -1,3 +1,4 @@
+import { useIsMobile } from "@/lib/hooks/useIsMobile";
 import { Record } from "@prisma/client";
 import {
   startOfWeek,

@@ -41,7 +41,11 @@ export default function HabitActions({
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="icon" className="shadow-none">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="shadow-none text-muted-foreground"
+          >
             <Ellipsis className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>

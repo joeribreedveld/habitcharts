@@ -29,11 +29,11 @@ export default function HabitToggle({ id, date, isRecorded }: THabitToggle) {
       disabled={isPending}
     >
       {isPending ? (
-        <Loader className="h-4 w-4 mr-2 animate-spin" />
+        <Loader className="h-4 w-4 mr-1 animate-spin" />
       ) : isRecorded ? (
-        <CircleCheck className="h-4 w-4 mr-2" />
+        <CircleCheck className="h-4 w-4 mr-1" />
       ) : (
-        <CircleAlert className="h-4 w-4 mr-2" />
+        <CircleAlert className="h-4 w-4 mr-1" />
       )}
       {isPending ? "" : isRecorded ? "Completed" : "Todo"}
     </Button>
