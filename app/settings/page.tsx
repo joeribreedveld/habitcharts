@@ -12,7 +12,7 @@ export default function Page() {
       <SettingsSidebar items={items} />
 
       <div className="w-full max-w-2xl">
-        <h2 className="text-lg font-semibold tracking-tight">Profile</h2>
+        <h2 className="text-lg font-semibold">Profile</h2>
         <p className="text-muted-foreground text-sm">
           Manage your account settings
         </p>

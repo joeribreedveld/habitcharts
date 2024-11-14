@@ -9,7 +9,7 @@ export default function SettingsHeader() {
           &larr; Back
         </Button>
       </Link>
-      <h1 className="text-xl font-bold tracking-tight mt-8">Settings</h1>
+      <h1 className="text-xl font-semibold mt-8">Settings</h1>
       <p className="text-muted-foreground">Manage your account settings</p>
     </header>
   );

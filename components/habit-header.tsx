@@ -10,7 +10,7 @@ export default function HabitHeader() {
   return (
     <header className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center px-4 mt-12 sm:container">
       <div>
-        <h1 className="text-lg font-bold tracking-tight">Habitcharts</h1>
+        <h1 className="text-lg font-semibold">Habitcharts</h1>
         <p className="text-muted-foreground">
           Track your habits and reach your goals
         </p>

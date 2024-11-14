@@ -38,7 +38,7 @@ export default function Page() {
   return (
     <main className="px-4 sm:container py-24 flex gap-16 flex-col">
       <div className="mx-auto gap-3 flex flex-col w-full">
-        <h1 className="mt-1 text-center text-3xl font-bold leading-tight tracking-tighter md:block md:text-4xl lg:leading-[1.1]">
+        <h1 className="mt-1 text-center text-3xl font-semibold leading-tight md:block md:text-4xl lg:leading-[1.1]">
           Join the waitlist!
         </h1>
         <p className="text-center text-lg font-light text-foreground">
