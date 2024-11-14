@@ -57,7 +57,7 @@ export default function Page() {
                 <FormItem>
                   <FormControl>
                     <div className="flex gap-4 flex-col sm:flex-row">
-                      <Input placeholder="Email address" {...field} />
+                      <Input {...field} />
                       <Button type="submit">Join waitlist</Button>
                     </div>
                   </FormControl>

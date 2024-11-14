@@ -82,13 +82,7 @@ export default function HabitTarget({
                   <FormItem>
                     <FormLabel>Target</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="Target"
-                        max={7}
-                        min={1}
-                        {...field}
-                      />
+                      <Input type="number" max={7} min={1} {...field} />
                     </FormControl>
 
                     <FormMessage />

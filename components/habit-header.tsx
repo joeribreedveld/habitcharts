@@ -15,18 +15,16 @@ export default function HabitHeader() {
           Track your habits and reach your goals
         </p>
       </div>
-      <div className="flex items-center gap-4">
-        {/* <Link href="/settings">
+      {/* <Link href="/settings">
           <Button variant="secondary">Settings</Button>
         </Link> */}
-        <Button
-          size="lg"
-          className="w-fit shadow-none"
-          onClick={() => setIsCreateDialogOpen(true)}
-        >
-          New Habit
-        </Button>
-      </div>
+      <Button
+        size="lg"
+        className="sm:w-fit shadow-none w-full"
+        onClick={() => setIsCreateDialogOpen(true)}
+      >
+        New Habit
+      </Button>
 
       <HabitCreate
         isCreateDialogOpen={isCreateDialogOpen}

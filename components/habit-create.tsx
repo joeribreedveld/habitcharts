@@ -96,7 +96,7 @@ export default function HabitCreate({
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Title" {...field} />
+                      <Input {...field} />
                     </FormControl>
 
                     <FormMessage />
@@ -110,7 +110,7 @@ export default function HabitCreate({
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input placeholder="Description" {...field} />
+                      <Input {...field} />
                     </FormControl>
 
                     <FormMessage />
@@ -124,13 +124,7 @@ export default function HabitCreate({
                   <FormItem>
                     <FormLabel>Weekly target (days)</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="Target"
-                        max={7}
-                        min={1}
-                        {...field}
-                      />
+                      <Input type="number" max={7} min={1} {...field} />
                     </FormControl>
 
                     <FormMessage />
