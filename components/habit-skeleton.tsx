@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function HabitSkeleton() {
   return (
-    <Card className="flex flex-col shadow-none border-none">
+    <Card className="flex flex-col shadow-none border-none bg-zinc-50">
       <CardHeader className="space-y-0 flex-row justify-between gap-4 h-full w-full">
         <Skeleton className="h-[42px] w-full" />
       </CardHeader>
