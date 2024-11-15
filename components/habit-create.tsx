@@ -36,10 +36,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const formSchema = z.object({
-  title: z.string().min(1).max(20),
-  description: z.string().min(1).max(50),
-  target: z.string(),
-  theme: z.string(),
+  title: z.string().min(1, "Title cannot be empty").max(20),
+  description: z.string().min(1, "Description cannot be empty").max(50),
+  target: z.string().min(1, "Target cannot be empty"),
+  theme: z.string().min(1, "Theme cannot be empty"),
 });
 
 export default function HabitCreate({
