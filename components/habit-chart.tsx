@@ -2,7 +2,21 @@
 
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { useIsMobile } from "@/lib/hooks/useIsMobile";
-import { TChartData, THabitChart } from "@/lib/types/habit-types";
+import { TChartData, THabitChart, TRecord } from "@/lib/types/habit-types";
+import { cn } from "@/lib/utils";
+import {
+  addDays,
+  addWeeks,
+  differenceInCalendarDays,
+  endOfWeek,
+  getDay,
+  getISOWeek,
+  isSameDay,
+  isWithinInterval,
+  parse,
+  parseISO,
+  startOfWeek,
+} from "date-fns";
 import { Bar, BarChart, Cell, ReferenceLine, XAxis, YAxis } from "recharts";
 
 const chartConfig: ChartConfig = {};
@@ -65,5 +79,33 @@ export default function HabitChart({ target, chartData }: THabitChart) {
         />
       </BarChart>
     </ChartContainer>
+    // <div className="w-full h-14 rounded-lg flex gap-4">
+    //   {Array.from({ length: 7 }).map((_, index) => (
+    //     <div className="w-full flex flex-col gap-2 h-full" key={index}>
+    //       <div
+    //         key={index}
+    //         className={cn(
+    //           "w-full h-full bg-muted rounded-md",
+    //           // make background primary if the current day is completed
+    //         )}
+    //       ></div>
+    //       <p className="text-xs text-center text-muted-foreground">
+    //         {index == 0
+    //           ? "Mo"
+    //           : index == 1
+    //             ? "Tu"
+    //             : index == 2
+    //               ? "We"
+    //               : index == 3
+    //                 ? "Th"
+    //                 : index == 4
+    //                   ? "Fr"
+    //                   : index == 5
+    //                     ? "Sa"
+    //                     : "Su"}
+    //       </p>
+    //     </div>
+    //   ))}
+    // </div>
   );
 }

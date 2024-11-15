@@ -55,11 +55,11 @@ export default function HabitActions({
             <DropdownMenuItem onClick={() => setIsCalendarDialogOpen(true)}>
               Calendar
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+
             <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
               Edit
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+
             <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
               Delete
             </DropdownMenuItem>
