@@ -25,7 +25,7 @@ export default function HabitHeader() {
       <Button
         size="lg"
         className="sm:w-fit shadow-none w-full"
-        onClick={() => setIsCreateDialogOpen(true)}
+        onMouseDown={() => setIsCreateDialogOpen(true)}
       >
         New Habit
       </Button>

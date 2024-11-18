@@ -25,7 +25,7 @@ export default function HabitToggle({ id, date, isRecorded }: THabitToggle) {
       variant={isRecorded ? "secondary" : "outline"}
       size="lg"
       className="w-full text-xs shadow-none"
-      onClick={() => handleToggleRecord()}
+      onMouseDown={() => handleToggleRecord()}
       disabled={isPending}
     >
       {isPending ? (

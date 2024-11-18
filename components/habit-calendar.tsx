@@ -145,7 +145,7 @@ export function HabitCalendar({
                 <Button
                   type="reset"
                   variant="ghost"
-                  onClick={() => {
+                  onMouseDown={() => {
                     setQueuedDates([]);
                     setRecorded(memoizedDates);
                   }}
